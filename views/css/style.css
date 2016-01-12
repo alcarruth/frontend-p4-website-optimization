@@ -44,6 +44,7 @@ form {
   content: "";
   display: table;
   clear:both;
+  width: 33%;
 }
 
  .container {
