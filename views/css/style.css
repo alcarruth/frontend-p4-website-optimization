@@ -1,52 +1,54 @@
 /** {
-  outline: 1px solid red !important;
-}*/
+    outline: 1px solid red !important;
+    }*/
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -box-sizing: border-box;
-}
-
-body {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  background: black;
-}
-
-input {
-  background: grey;
-  font-size: 18px;
-}
-
-form {
-  display: inline-block;
-}
-
-.centered {
-  text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -box-sizing: border-box;
 }
 
 #pizzaSize {
-  font-weight: 800;
+    font-weight: 800;
+}
+
+body {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    background-color: black;
+}
+
+input {
+    background: grey;
+    font-size: 18px;
+}
+
+form {
+    display: inline-block;
+}
+
+.centered {
+    text-align: center;
 }
 
 .mover {
-  position: fixed;
-  width: 256px;
-  z-index: -1;
+    will-change: transform;
+    position: fixed;
+    width: 256px;
+    z-index: -1;
 }
 
 .randomPizzaContainer {
-  float: left;
-  display: flex;
+    float: left;
+    display: flex;
 }
 
 .randomPizzaContainer:after {
-  content: "";
-  display: table;
-  clear:both;
-  width: 33%;
+    content: "";
+    display: table;
+    clear:both;
+    width: 33%;
 }
 
- .container {
-  background-color: rgba(240, 60, 60, 0.8);
+.container {
+    background-color: rgba(240, 60, 60, 0.8);
 }
+
