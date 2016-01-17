@@ -1,0 +1,32 @@
+[
+ {
+  "name": "The Udacity Special",
+  "ingredients": {
+   "meats": [
+    "Turkey",
+    "Tofu"
+   ],
+   "non_meats": [
+    "Cauliflower",
+    "Sun Dried Tomatoes"
+   ],
+   "cheeses": [],
+   "sauce": "Red Sauce",
+   "crust": "White Crust"
+  }
+ },
+ {
+  "name": "The Cameron Special",
+  "ingredients": {
+   "meats": [
+    "Chicken"
+   ],
+   "non_meats": [],
+   "cheeses": [
+    "Velveeta Cheese"
+   ],
+   "sauce": "Hot Sauce",
+   "crust": "Whole Wheat Crust"
+  }
+ }
+]
