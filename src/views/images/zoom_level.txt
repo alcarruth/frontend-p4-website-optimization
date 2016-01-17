@@ -1,0 +1,12 @@
+
+Using transform = scale(); seems to work well to resize pizzas,
+
+EXCEPT that now, when the user zooms the page, the pizzas remain
+at their present level.
+
+I wonder if I there is some zoom_level_change event that I can 
+catch to fix this.
+
+I see there is 'onresize'.  Can I use that?
+
+ok, changing zoom definitely triggers onresize.

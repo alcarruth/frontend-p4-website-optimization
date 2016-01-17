@@ -1,0 +1,13 @@
+/*
+ Semantic Pizza
+ ---------------
+ What? Never had a semantic pizza?  Never even _heard_ of it?  Well
+ you're in for a treeat!  You've heard of gluten free, lactose free,
+ vegan, paleo ...  Well semantic pizzas are DOM free.  
+
+ And they're not only delicious, they are good for you.  That's right,
+ no hard to digest elements, tags, selectors and such to clog the ol'
+ pipeline, just pure delicious JavaScript strings, arrays, and
+ objects, suitable for use either client side or server side.  So,
+ dine in, or take'n'bake, it' up to you!
+*/

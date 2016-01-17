@@ -1,0 +1,37 @@
+
+
+This file was produced by executing
+
+$ grep convert .bash_history > convert_log.txt
+
+so it is just meant to capture my attempts to manipulate the images using
+ImageMagick with which I'm not very familiar :-)
+
+I basically just grabbed some suggestions off of stackoverflow and 
+started messing around with it.
+
+convert -strip -interlace Plane -quality 20% pizza.png pizza_sm.png
+convert pizza.png pizza.jpg
+convert -resize 20% -strip -interlace Plane -quality 20% pizzeria.jpg pizzeria_md.jp
+convert -resize 20% -strip -interlace Plane -quality 80% pizzeria.jpg pizzeria_md.jp
+convert -resize 20% -strip -interlace Plane -quality 50% pizzeria.jpg pizzeria_md.jp
+convert -resize 20% -strip -interlace Plane -quality 80% pizzeria.jpg pizzeria_md.jpg
+man convert // What? I had to read the manual ?-)
+convert pizzeria.jpg -resize 10% pizzeria_sm.jpg 
+convert pizzeria.jpg -resize 10% -quality 20% pizzeria_sm.jpg 
+convert pizzeria.jpg -resize 10% -quality 10% pizzeria_sm.jpg 
+convert pizzeria.jpg -resize 5% -quality 10% pizzeria_sm.jpg 
+convert pizzeria.jpg -resize 10% -quality 5% pizzeria_sm.jpg 
+convert pizzeria.jpg -resize 10% -quality 10 pizzeria_sm.jpg 
+convert pizzeria.jpg -resize 10% -quality 2 pizzeria_sm.jpg 
+convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% source.jpg result.jpg
+convert -strip -interlace Plane -gaussian-blur 0.05 -quality 85% pizzeria.jpg pizzeria_sm.jpg 
+convert -strip -interlace Plane -gaussian-blur 0.05 -quality 20% pizzeria.jpg pizzeria_sm.jpg 
+convert -resize 10% -strip -interlace Plane -gaussian-blur 0.05 -quality 15% pizzeria.jpg pizzeria_sm.jpg 
+convert -resize 10% -strip -interlace Plane -quality 20% pizzeria.jpg pizzeria_sm.jpg 
+convert -width 100 -strip -interlace Plane -quality 20% pizzeria.jpg pizzeria_sm.jpg 
+convert -resize 10% -strip -interlace Plane -quality 20% pizzeria.jpg pizzeria_sm.jpg 
+convert pizza.png pizza.jpg
+convert -strip -interlace Plane -quality 20% pizza.jpg pizza_sm.jpg
+convert -strip -interlace Plane -quality 20% pizza.png pizza_sm.png
+

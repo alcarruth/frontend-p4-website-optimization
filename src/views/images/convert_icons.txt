@@ -1,0 +1,20 @@
+
+http://stackoverflow.com/questions/3185677/converting-gifs-pngs-and-jpgs-to-ico-files-using-imagemagick
+
+
+Converting GIF's, PNG's and JPG's to .ICO files using Imagemagick
+
+
+up vote: 41
+down vote: 12
+
+
+From: JPG, To: ICO;
+
+/usr/bin/convert -resize x16 -gravity center -crop 16x16+0+0 input.jpg -transparent white -colors 256 output/favicon.ico 
+
+
+From: GIF's, PNG To: ICO;
+
+/usr/bin/convert -resize x16 -gravity center -crop 16x16+0+0 input.png -flatten -colors 256 output/favicon.ico 
+
