@@ -61,10 +61,6 @@ function Sliding_Pizzas_Background(rows, cols, timer_wrap) {
                 pizzas.push(pizza);
             }
         }
-		  pizza_image_nodes = 
-				Array.prototype.slice.apply(
-					 document.querySelectorAll('img.sliding-pizza'));
-
         update_positions();
     }
 
@@ -98,46 +94,59 @@ function Sliding_Pizzas_Background(rows, cols, timer_wrap) {
 		  console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 	 }
 
+    // set by event listener
+    // tested and cleared by update_positions()
 	 var scrolling = false;
+
+    // boolean updating
+    // set and cleared by update_positions()
+    // tested by scroll event listener
 	 var updating = false;
+
 	 // timed method
     function update_positions() {
 
-		  if (scrolling) {
-				scrolling = false;
-				updating = true;
-
-				// we wrap the updating code with a timeer
-				var times = timer_wrap("frame", function() {
-					 var i, j, phase;
-					 var top = document.body.scrollTop;
-					 frame++;
-					 for (i = 0; i < 5; i++) {
-						  phase = Math.sin((top / 1250) + i);
-						  for (j = i; j < pizzas.length; i += 5) {
-								pizzas[j].update_position(100 * phase, 0);
-					 }
-				})();
-				if (frame % 10 === 0) {
-					 log_update_times(times);
-				}
-		  }
-		  updating = false;
-		  requestAnimationFrame(update_positions);
+        if (scrolling) {
+            scrolling = false;
+            updating = true;
+		      // we wrap the updating code with a timeer
+		      var times = timer_wrap("frame", function() {
+				    var i, j, phase;
+				    var top = document.body.scrollTop;
+				    frame++;
+				    for (i = 0; i < 5; i++) {
+					     phase = Math.sin((top / 1250) + i);
+					     for (j = i; j < pizzas.length; j += 5) {
+						      pizzas[j].update_position(100 * phase, 0);
+					     }
+				    }
+            })();
+		      if (frame % 10 === 0) {
+				    log_update_times(times);
+		      }
+            // tail recursive call (loop)
+            requestAnimationFrame(update_positions);
+        }
+        else {
+            // no longer scrolling so exit the
+            // tail-recursive loop to quit updating.
+            updating = false;
+        }
 	 }
 
 	 // method init()
 	 function init() {
-		  //window.addEventListener('optimizedScroll', function() {
-		  window.addEventListener('scroll', function() {
-				scrolling = true;
-				});
+		  window.addEventListener('optimizedScroll', function() {
+            scrolling = true;
+            if (!updating) {
+                requestAnimationFrame(update_positions);
+            }
+		  });
 
-		  requestAnimationFrame(update_positions);
 		  generate_sliding_pizzas();	
 	 }
 
-    return {
+   return {
         cols: cols,
         rows: rows,
         sx: sx,

@@ -1,6 +1,3 @@
-/** {
-    outline: 1px solid red !important;
-    }*/
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -64,7 +61,6 @@ body {
     z-index: -1;
 }
 
-
 h2 {
 	 width: 100%;
 }
@@ -78,14 +74,6 @@ input {
     font-weight: 800;
 	 width: 100%;
 }
-
-#pizzeria-image {
-/*
-    width: 50%;
-    height: 50%;
-*/
-}
-
 
 #menu-item-template {
 	 display: none;

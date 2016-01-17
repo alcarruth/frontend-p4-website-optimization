@@ -6,7 +6,110 @@
   <meta name="description" content="Pizza Restaurant">
   <meta name="author" content="Al Carruth">
   <title> Pizza </title>
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -box-sizing: border-box;
+}
+
+body {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    background-color: black;
+}
+
+#main {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgba(240, 60, 60, 0.8);
+	 width: 800px;
+    padding: 5%;
+}
+
+#locations {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+	 justify-content: space-around;
+	 width: 100%;
+}
+
+#nav-bar {
+	 width: 100%;
+}
+
+#header,
+#call-to-action,
+#ingredients,
+#size_selector,
+#pizza-menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+#sliding-pizzas {
+    z-index: -1;
+}
+
+.sliding-pizza {
+    will-change: transform;
+	 position: fixed;
+    width: 256px;
+    z-index: -1;
+}
+
+h2 {
+	 width: 100%;
+}
+
+input {
+    background: grey;
+    font-size: 18px;
+}
+
+#pizza-size {
+    font-weight: 800;
+	 width: 100%;
+}
+
+#menu-item-template {
+	 display: none;
+}
+.menu-item {
+    display: flex;
+    width: 33%;
+    transform: scale(1);
+}
+
+.menu-item-image {
+    width: 50%;
+    height: 50%;
+}
+
+.menu-item-description {
+    font-size: 14px;
+}
+/*
+.menu-item:after {
+    content: "";
+    display: table;
+    clear:both;
+}
+*/
+</style>
+
 </head>
 
 <body>
@@ -121,13 +224,9 @@
 	 <div id="sliding-pizzas"> </div>
 
   </div> <!-- end div#main -->
-  
-<script type="text/javascript" src="js/mustache.min.js"> </script>
-<script type="text/javascript" src="js/timer.js"> </script>
-<script type="text/javascript" src="js/pizza_designer.js"> </script>
-<script type="text/javascript" src="js/pizza_menu.js"> </script>
-<script type="text/javascript" src="js/sliding_pizzas.js"> </script>
-<script type="text/javascript" src="js/main.js"> </script>
+
+  <script type="text/javascript" src="js/mustache.min.js"> </script>
+  <script type="text/javascript" src="js/main-min.js"> </script>
 
 </body>
 
