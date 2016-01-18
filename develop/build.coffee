@@ -167,7 +167,7 @@ class Project
             style_css: { minified: true, inline: true }
             print_css: { minified: true, inline: true }
             google_analitics_profile_js:  { minified: true, inline: true }
-            google_analytics_js:  { }
+            google_analytics_js:  { async: true }
             perfmatters_js:  { minified: true, inline: true }
             profilepic:  { minified: true  }
             mobilewebdev_jpg:  { minified: true }
@@ -180,7 +180,7 @@ class Project
             style_css: { minified: true, inline: true }
             print_css: { minified: true, inline: true }
             google_analitics_profile_js:  { minified: true, inline: true }
-            google_analytics_js:  { root: '../' }
+            google_analytics_js:  { async: true, root: '../' }
             perfmatters_js:  { minified: true, inline: true }
             profilepic:  { minified: true, root: '../' }
             mobilewebdev_jpg:  { minified: true, root: '../' }
