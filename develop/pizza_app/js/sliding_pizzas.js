@@ -61,6 +61,7 @@ function Sliding_Pizzas_Background(rows, cols, timer_wrap) {
                 pizzas.push(pizza);
             }
         }
+        scrolling = true;
         update_positions();
     }
 

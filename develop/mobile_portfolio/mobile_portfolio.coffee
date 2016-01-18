@@ -89,7 +89,7 @@ class Include_URL
             template = template.replace('{{js_url}}', path)
         return template
 
-class Include_Img
+class Include_IMG
 
     ref_template = '<img src="{{href}}" alt="{{alt}}">'
     inline_template = ''
@@ -132,64 +132,71 @@ class HTML_Template
             template = template.replace('{{'+pat+'}}', str)
         return template
 
-class Project
 
-    constructor: ->
+class Page
+
+    constructor: (@includes, @options, template_base) ->
+        @template = new HTML_Template(template_base)
         
-    includes: 
-        open_sans_css: new Include_CSS('open-sans')
-        style_css:  new Include_CSS('style')
-        print_css: new Include_CSS('print')
-        google_analitics_profile_js:  new Include_JS('analytics_profile')
-        google_analytics_js: new Include_JS('analytics')
-        perfmatters_js: new Include_JS('perfmatters')
-        profilepic: new Include_Img('profilepic', min='-q50')
-        mobilewebdev_jpg: new Include_Img('mobilewebdev', min='-q50')
-        cam_be_like_jpg: new Include_Img('cam_be_like', min='-q50')
-
-    pages:
-        index_html: new HTML_Template('index')
-        project_2048_html: new HTML_Template('project-2048')
-        project_mobile_html: new HTML_Template('project-mobile')
-        project_webperf_html: new HTML_Template('project-webperf')
-
-    build_subs: (options) =>
-        console.log options
+    build_subs: =>
         subs = {}
         for key, val of @includes
-            subs[key] = val.render(options[key])
+            subs[key] = val.render(@options[key])
         return subs
 
-    build: =>
+    render: =>
+        subs = @build_subs()
+        @template.render(subs)
+    
+includes =
+    open_sans_css: new Include_CSS('open-sans')
+    style_css:  new Include_CSS('style')
+    print_css: new Include_CSS('print')
+    google_analitics_profile_js:  new Include_JS('analytics_profile')
+    google_analytics_js: new Include_JS('analytics')
+    perfmatters_js: new Include_JS('perfmatters')
+    profilepic: new Include_IMG('profilepic', min='-q50')
+    mobilewebdev_jpg: new Include_IMG('mobilewebdev', min='-q50')
+    cam_be_like_jpg: new Include_IMG('cam_be_like', min='-q50')
 
-        subs = @build_subs
-            open_sans_css: { minified: true, inline: true }
-            style_css: { minified: true, inline: true }
-            print_css: { minified: true, inline: true }
-            google_analitics_profile_js:  { minified: true, inline: true }
-            google_analytics_js:  { async: true }
-            perfmatters_js:  { minified: true, inline: true }
-            profilepic:  { minified: true  }
-            mobilewebdev_jpg:  { minified: true }
-            cam_be_like_jpg:  { minified: true }
-
-        fs.writeFileSync('index.html', @pages.index_html.render(subs))
-
-        subs = @build_subs
-            open_sans_css: { minified: true, inline: true }
-            style_css: { minified: true, inline: true }
-            print_css: { minified: true, inline: true }
-            google_analitics_profile_js:  { minified: true, inline: true }
-            google_analytics_js:  { async: true, root: '../' }
-            perfmatters_js:  { minified: true, inline: true }
-            profilepic:  { minified: true, root: '../' }
-            mobilewebdev_jpg:  { minified: true, root: '../' }
-            cam_be_like_jpg:  { minified: true, root: '../' }
-            
-        fs.writeFileSync('projects/project-2048.html', @pages.project_2048_html.render(subs))
-        fs.writeFileSync('projects/project-mobile.html', @pages.project_mobile_html.render(subs))
-        fs.writeFileSync('projects/project-webperf.html', @pages.project_webperf_html.render(subs))
+top_dir_options =
+    open_sans_css: { minified: true, inline: true }
+    style_css: { minified: true, inline: true }
+    print_css: { minified: true, inline: true }
+    google_analitics_profile_js:  { minified: true, inline: true }
+    google_analytics_js:  { async: true }
+    perfmatters_js:  { minified: true, inline: true }
+    profilepic:  { minified: true  }
+    mobilewebdev_jpg:  { minified: true }
+    cam_be_like_jpg:  { minified: true }
 
 
-exports.project = new Project()
+subdir_options =
+    open_sans_css: { minified: true, inline: true }
+    style_css: { minified: true, inline: true }
+    print_css: { minified: true, inline: true }
+    google_analitics_profile_js:  { minified: true, inline: true }
+    google_analytics_js:  { async: true, root: '../' }
+    perfmatters_js:  { minified: true, inline: true }
+    profilepic:  { minified: true, root: '../' }
+    mobilewebdev_jpg:  { minified: true, root: '../' }
+    cam_be_like_jpg:  { minified: true, root: '../' }
+
+
+pages = 
+    index: new Page(includes, top_dir_options, 'index')
+    project_2048: new Page(includes, subdir_options, 'project-2048')
+    project_mobile: new Page(includes, subdir_options, 'project-mobile')
+    project_webperf: new Page(includes, subdir_options, 'project-webperf')
+
+
+build = ->        
+    fs.writeFileSync('index.html', pages.index.render())
+    fs.writeFileSync('projects/project-2048.html', pages.project_2048.render())
+    fs.writeFileSync('projects/project-mobile.html', pages.project_mobile.render())
+    fs.writeFileSync('projects/project-webperf.html', pages.project_webperf.render())
+
+
+exports.pages = pages
+exports.build = build
 

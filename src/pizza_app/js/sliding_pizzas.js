@@ -69,6 +69,8 @@ function Sliding_Pizza_Background(rows, cols) {
                 pizzas.push(pizza);
             }
         }
+        // not really scrolling but we want to force initial update
+        scrolling = true;
         update_positions();
     }
 
