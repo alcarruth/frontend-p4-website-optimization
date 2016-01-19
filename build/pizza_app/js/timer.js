@@ -3,13 +3,13 @@ function Timer() {
 
 	 function timer_wrap(unique_id, func) {
 
+		  var mark_start = "mark_start_" + unique_id;
+		  var mark_end = "mark_end_" + unique_id;
+		  var measure = "measure_" + unique_id;
+		  var times;
+
 		  return function() {
 				
-				var mark_start = "mark_start_" + unique_id;
-				var mark_end = "mark_end_" + unique_id;
-				var measure = "measure_" + unique_id;
-				var times;
-
 				window.performance.mark(mark_start);
 				
 				func(); // the function call to be timed

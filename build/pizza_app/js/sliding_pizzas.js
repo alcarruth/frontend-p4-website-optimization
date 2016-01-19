@@ -65,28 +65,6 @@ function Sliding_Pizzas_Background(rows, cols, timer_wrap) {
         update_positions();
     }
 
-	 // Thank you MDN!
-	 // https://developer.mozilla.org/en-US/docs/Web/Events/scroll
-	 //
-	 (function() {
-		  var throttle = function(type, name, obj) {
-				obj = obj || window;
-				var running = false;
-				var func = function() {
-					 if (running) { return; }
-					 running = true;
-					 requestAnimationFrame(function() {
-						  obj.dispatchEvent(new CustomEvent(name));
-						  running = false;
-					 });
-				};
-				obj.addEventListener(type, func);
-		  };
-		  
-		  // init - you can init any event 
-		  throttle ("scroll", "optimizedScroll");
-	 })();
-
 	 function log_update_times(times) {
 		  var sum = 0;
 		  for (var i = times.length-10; i < times.length; i++) {
@@ -193,13 +171,9 @@ function Sliding_Pizzas_Background(rows, cols, timer_wrap) {
 	 function init() {
 
         // There is an intricate tango going on between this event
-        // listener and the update_positions() function.  The
-        // optimizedScroll event is a throttled version of 'scroll'.
-        // It's not clear to me whether we're better off with it
-        // or just 'scroll' considering that we're managing our
-        // own animation frame requests.  
+        // listener and the update_positions() function. 
 
-		  window.addEventListener('optimizedScroll', function() {
+		  window.addEventListener('scroll', function() {
 
             // The 'scrolling' flag indicates to update_functions()
             // that a scroll event has occurred.
