@@ -1,77 +1,74 @@
 
-var pizzas;
-var pizza_size = document.querySelector("#pizza-size");
-var pizza_menu = document.getElementById("pizza-menu");
-var pizza_menu_template = document.getElementById('pizza-menu-template').innerHTML;
 
-function timer_wrap(unique_id, func) {
+// Pizza_Menu: pseudo class constructor
+//
+//  - returns a plain javascript object (aka 'dict', 'hash')
+//
+//  - assumes the existence of the following externals:
+//    - function Timer()
+//    - function Pizza_Designer()
 
-    return function() {
-		  
-		  var mark_start = "mark_start_" + unique_id;
-		  var mark_end = "mark_end_" + unique_id;
-		  var measure = "measure_" + unique_id;
-		  var times;
+function Pizza_Menu( pizza_designer, pizza_menu_size, timer_wrap) {
 
-        window.performance.mark(mark_start);
-        
-        func(); // the function call to be timed
+	 // array pizzas holds the pizzas returned by the calls
+	 // to pizza_designer in generate_pizzas() below
+	 var pizzas = [];
 
-        window.performance.mark(mark_end);
-        window.performance.measure(measure, mark_start, mark_end);
-		  times = window.performance.getEntriesByName(measure);
+	 // the following properties are initialized in 
+	 // method init() below.
+	 var pizza_size;
+	 var size_slider;
+	 var pizza_menu;
+	 var pizza_menu_template;
 
-		  return times;
-   }
+	 // timed method to resize the pizza images on the menu
+	 function resize_pizzas(size) { 
+
+		  var times = timer_wrap("resize", function() {
+				var text = { 1: "Small", 2: "Medium", 3: "Large" }[size];
+				var width = { 1: '25%', 2: '33%', 3: '50%' }[size];
+				pizza_size.innerHTML = text;
+				for (var i=0; i<pizzas.length; i++) {
+					 pizzas[i].element.style.width = width;
+				}
+		  })();
+		  console.log("Time to resize pizzas: " + times[0].duration + "ms");
+	 };
+
+	 // timed method to generate the pizza menu items
+	 function generate_pizzas() {
+
+		  var times = timer_wrap('generate', function() {
+				var pizza;
+				for (var i=0; i < pizza_menu_size; i++) {
+					 pizza = pizza_designer('pizza_' + i);
+					 pizzas.push(pizza);
+				}
+				pizza_menu.innerHTML = Mustache.render(pizza_menu_template, {pizzas: pizzas});
+				for (i in pizzas) {
+					 pizza = pizzas[i];
+					 pizza.element = document.getElementById(pizza.id);
+				}
+
+		  })();
+		  console.log("Time to generate pizzas on load: " + times[0].duration + "ms");
+	 }
+
+	 function init() {
+		  pizza_size = document.querySelector("#pizza-size");
+		  size_slider = document.querySelector("#size-slider");
+		  size_slider.resize_pizzas = resize_pizzas;
+		  size_slider.onchange = function(){
+				resize_pizzas(this.value);
+		  }
+		  pizza_menu = document.getElementById("pizza-menu");
+		  pizza_menu_template = document.getElementById('pizza-menu-template').innerHTML;
+		  generate_pizzas();
+	 }
+
+	 return {
+		  init: init,
+		  pizzas: pizzas,
+		  resize_pizzas: resize_pizzas
+	 };
 }
-
-function resize_pizzas(size) { 
-
-	 var times = timer_wrap("resize", function() {
-
-		  var size_text = { 1: "Small", 2: "Medium", 3: "Large" }[size];
-		  var tile_size = { 1: '25%', 2: '33%', 3: '50%' }[size];
-
-		  pizza_size.innerHTML = size_text;
-
-		  for (var i=0; i<pizzas.length; i++) {
-				pizzas[i].element.style.width = tile_size;
-		  }
-	 })();
-
-    console.log("Time to resize pizzas: " + times[0].duration + "ms");
-};
-
-function generate_menu(num_pizzas) {
-
-	 var times = timer_wrap('generate', function() {
-
-		  pizzas = []; //global
-
-		  //var pizza_menu = document.getElementById("pizza-menu");
-		  //var pizza_menu_template = document.getElementById('pizza-menu-template').innerHTML;
-
-		  var i;
-
-		  for (i=0; i < num_pizzas; i++) {
-				pizza = window.random_pizza('pizza_' + i);
-				pizzas.push(pizza);
-		  }
-		  pizza_menu.innerHTML = Mustache.render(pizza_menu_template, {pizzas: pizzas});
-
-		  for (i in pizzas) {
-				pizza = pizzas[i];
-				pizza.element = document.getElementById(pizza.id);
-		  }
-
-	 })();
-
-	 console.log("Time to generate pizzas on load: " + times[0].duration + "ms");
-}
-
-
-var pizza_menu;
-
-window.onload = function() {
-	 pizza_menu = generate_menu(72);
-};
