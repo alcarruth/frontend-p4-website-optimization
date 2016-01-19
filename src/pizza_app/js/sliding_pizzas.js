@@ -57,7 +57,7 @@ function Sliding_Pizza_Background(rows, cols) {
     function generate_sliding_pizzas() {
 
         var img; 
-        var src = "images/pizza.png";
+        var src = "images/pizza-blk-bg.jpg";
         var height = "100px";
         var width = "73.333px";
 

@@ -3,8 +3,7 @@
 fs = require('fs')
 
 build_root = '../../'
-build_src = build_root + 'src/pizza_app/'
-build_dst = build_root + 'develop/pizza_app/'
+build_src_dir = build_root + 'src/pizza_app/'
 
 runtime_root = ''
 
@@ -24,7 +23,7 @@ class Include_CSS
         path += @min if options.minified
         path += @suffix
         if options.inline
-            path = build_src + path
+            path = build_src_dir + path
             template = inline_template
             css_str = fs.readFileSync(path, 'utf-8')
             template = template.replace('{{css}}', css_str)
@@ -52,7 +51,7 @@ class Include_JS
         path += @min if options.minified
         path += @suffix
         if options.inline
-            path = build_src + path
+            path = build_src_dir + path
             template = inline_template
             inline_str = fs.readFileSync(path, 'utf-8')
             template = template.replace('{{js}}', inline_str)
@@ -82,7 +81,7 @@ class Include_URL
         path += @min if options.minified
         path += @suffix
         if options.inline
-            path = build_src + path
+            path = build_src_dir + path
             flag_str = ''
             flag_str += 'async ' if async
             template = inline_template
@@ -111,7 +110,7 @@ class Include_IMG
         path += @min if options.minified
         path += @suffix
         if options.inline
-            path = build_src + path
+            path = build_src_dir + path
             console.log('not implemented yet')
         else
             alt = path if not options.alt
@@ -129,7 +128,7 @@ class HTML_Template
 
     load_src: (minified=false) =>
         path = ''
-        path += build_src
+        path += build_src_dir
         path += @dir
         path += @base
         path += @min if minified
@@ -145,7 +144,7 @@ class HTML_Template
 
 class Page
 
-    constructor: (@includes, @options, template_base) ->
+    constructor: (@includes, @options, template_base, @dst_path) ->
         @template = new HTML_Template(template_base)
         
     build_subs: =>
@@ -157,8 +156,20 @@ class Page
     render: =>
         subs = @build_subs()
         @template.render(subs)
-    
-includes =
+
+    build: =>
+        fs.writeFileSync(@dst_path, @render())
+
+class Project
+
+    constructor: (@includes, @options, @pages) ->
+
+    build: => 
+        for page in @pages
+            page.build()
+
+
+develop_includes =
     style_css: new Include_CSS('style')
     pizza_png: new Include_IMG('pizza')
     pizzeria_jpg: new Include_IMG('pizzeria', min='_md')
@@ -169,7 +180,7 @@ includes =
     sliding_pizzas_js: new Include_JS('sliding_pizzas')
     pizza_app_js: new Include_JS('pizza_app')
 
-options =
+develop_options =
     style_css: { minified: false }
     pizza_png: { minified: false }
     pizzeria_jpg: { minified: true }
@@ -182,11 +193,54 @@ options =
 
 
 pages = 
-    index: new Page(includes, options, 'index')
+    index: new Page(includes, options, 'index', 'index.html')
 
-build = ->        
-    fs.writeFileSync('index.html', pages.index.render())
 
-exports.pages = pages
-exports.build = build
+
+develop_includes =
+    style_css: new Include_CSS('style')
+    pizza_png: new Include_IMG('pizza')
+    pizzeria_jpg: new Include_IMG('pizzeria', min='_md')
+    mustache_js: new Include_JS('mustache', min='.min')
+    timer_js: new Include_JS('timer')
+    pizza_designer_js: new Include_JS('pizza_designer')
+    pizza_menu_js: new Include_JS('pizza_menu')
+    sliding_pizzas_js: new Include_JS('sliding_pizzas')
+    pizza_app_js: new Include_JS('pizza_app')
+
+develop_options =
+    style_css: { minified: false }
+    pizza_png: { minified: false }
+    pizzeria_jpg: { minified: true }
+    mustache_js: { minified: true }
+    timer_js: { minified: false }
+    pizza_designer_js: { minified: false }
+    pizza_menu_js: { minified: false }
+    sliding_pizzas_js: { minified: false }
+    pizza_app_js: { minified: false }
+
+
+develop_pages = 
+    index: new Page(includes, options, 'index_develop', 'index.html')
+
+dist_includes =
+    style_css: new Include_CSS('style')
+    pizza_png: new Include_IMG('pizza')
+    pizzeria_jpg: new Include_IMG('pizzeria', min='_md')
+    mustache_js: new Include_JS('mustache', min='.min')
+    main_js: new Include_JS('main')
+
+dist_options =
+    style_css: { minified: false }
+    pizza_png: { minified: false }
+    pizzeria_jpg: { minified: true }
+    mustache_js: { minified: true }
+    main_js: { minified: true }
+
+dist_pages = 
+    index: new Page(includes, options, 'index', 'index.html')
+
+dist_pizza_app = new Project(includes, options, pages)
+
+exports.pizza_app = pizza_app
 
