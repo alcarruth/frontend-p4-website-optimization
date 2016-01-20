@@ -10,9 +10,8 @@ function Pizza_App() {
 
 	 // leave these alone :-)
 	 var pizza_designer = Pizza_Designer();
-	 var timer_wrap = Timer().wrap;
-	 var pizza_menu = Pizza_Menu( pizza_designer, pizza_menu_size, timer_wrap);
-	 var sliding_pizzas = Sliding_Pizzas_Background(sliding_pizza_rows, sliding_pizza_cols, timer_wrap);
+	 var pizza_menu = Pizza_Menu( pizza_designer, pizza_menu_size);
+	 var sliding_pizzas = Sliding_Pizzas_Background(sliding_pizza_rows, sliding_pizza_cols);
 
 	 function init() {
 		  pizza_menu.init();

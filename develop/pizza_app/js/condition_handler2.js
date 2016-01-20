@@ -16,7 +16,7 @@ function condition_handler(foo, dt) {
     };
 
     function timeout_handler() {
-        if (!event_received) {
+        if (event_received) {
             console.log('event_count: ' + event_count);
             condition = false;
         }

@@ -38,7 +38,7 @@ function Sliding_Pizza(bg, img_src, row, col, sx, sy) {
 }
 
 // constructor
-function Sliding_Pizzas_Background(rows, cols, timer_wrap) {
+function Sliding_Pizzas_Background(rows, cols) {
 
     var bg;           // background element
     var pizzas = [];  // array of sliding pizzas
@@ -79,11 +79,20 @@ function Sliding_Pizzas_Background(rows, cols, timer_wrap) {
 		  }
     }
 
+	 function log_update_times(times) {
+		  var sum = 0;
+        if (times.length % 100 == 0) {
+		      for (var i = times.length-100; i < times.length; i++) {
+				    sum = sum + times[i].duration;
+		      }
+		      console.log("Average time to generate last 100 frames: " + sum / 100 + "ms");
+        };
+	 }
+
 	 // method init()
 	 function init() {
-        var timer = Timer();
-        var timed_update = timer.wrap('update', update_positions)
-        scroller = new Condition_Handler(timed_update, 3000);
+        var timed_update = timer_wrap('update', update_positions, log_update_times)
+        scroller = condition_handler(timed_update, 3000);
         window.addEventListener('scroll', scroller.event_listener);
 
 		  generate_sliding_pizzas();	
