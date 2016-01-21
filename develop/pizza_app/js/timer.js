@@ -10,7 +10,7 @@ function timer_wrap(unique_id, func, cb) {
         
 		  window.performance.mark(mark_start);
 		  
-		  func(); // the function call to be timed
+		  func.apply(this, arguments); // the function call to be timed
         
 		  window.performance.mark(mark_end);
 		  window.performance.measure(measure, mark_start, mark_end);

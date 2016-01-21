@@ -40,6 +40,7 @@ class Include_CSS
             path = ''
             path += runtime_root
             path += @dir
+            path += fname
 
             template = ref_template
             template = template.replace('{{css_url}}', path)
@@ -187,6 +188,7 @@ includes_develop =
     pizzeria_jpg: new Include_IMG('pizzeria', min='_md')
     mustache_js: new Include_JS('mustache', min='.min')
     timer_js: new Include_JS('timer')
+    animation_loop_js: new Include_JS('animation_loop')
     pizza_designer_js: new Include_JS('pizza_designer')
     pizza_menu_js: new Include_JS('pizza_menu')
     sliding_pizzas_js: new Include_JS('sliding_pizzas')
@@ -198,6 +200,7 @@ options_develop =
     pizzeria_jpg: { minified: true }
     mustache_js: { minified: true }
     timer_js: { minified: false }
+    animation_loop_js: { minified: false }
     pizza_designer_js: { minified: false }
     pizza_menu_js: { minified: false }
     sliding_pizzas_js: { minified: false }
@@ -218,7 +221,7 @@ options_dist =
     main_js: { minified: false }
 
 pages = 
-    index_develop: new Page(includes_develop, options_develop, 'index')
+    index_develop: new Page(includes_develop, options_develop, 'index_develop')
     index_dist: new Page(includes_dist, options_dist, 'index') 
 
 build = ->        

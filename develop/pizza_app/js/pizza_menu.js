@@ -36,11 +36,7 @@ function Pizza_Menu( pizza_designer, pizza_menu_size) {
 		  console.log("Time to resize pizzas: " + times[0].duration + "ms")
     }
 
-    timed_resize_pizzas = function() {
-        return function() {
-            timer_wrap("resize", function() { resize_pizzas(size) }, log_resize);
-        }
-    }();
+    var timed_resize_pizzas =  timer_wrap("resize", resize_pizzas, log_resize);
 
     //---------------------------------------------------------------------------------
 

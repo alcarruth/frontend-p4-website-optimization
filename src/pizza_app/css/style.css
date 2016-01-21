@@ -60,7 +60,6 @@ body {
 .sliding-pizza {
     will-change: transform;
 	 position: fixed;
-    width: 256px;
     z-index: -1;
 }
 
