@@ -52,8 +52,8 @@ cp $SRC/${IMG}/pizzeria.jpg ${DST}/${IMG}
 chmod 664 ${DST}/${IMG}/*
 
 echo "compressing pizzeria.jpg"
-convert ${DST}/${IMG}/pizzeria.jpg -resize 20% -quality 50% ${DST}/${IMG}/pizzeria_md.jpg
-convert ${DST}/${IMG}/pizzeria.jpg -resize 20% -quality 20% ${DST}/${IMG}/pizzeria_sm.jpg
+convert ${DST}/${IMG}/pizzeria.jpg -resize 20% -quality 20% ${DST}/${IMG}/pizzeria_md.jpg
+convert ${DST}/${IMG}/pizzeria.jpg -resize 5% -quality 20% ${DST}/${IMG}/pizzeria_sm.jpg
 
 echo "building index.html"
 ./pizza_app.coffee

@@ -21,19 +21,18 @@ body {
     display: -webkit-flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     background-color: rgba(240, 60, 60, 0.8);
-	 width: 800px;
-    padding: 5%;
+	 width: 100%;
+	 max-width: 800px;
 }
 
 #locations {
     display: flex;
-    display: -webkit-flex;
     flex-wrap: wrap;
     flex-direction: row;
 	 justify-content: space-around;
-	 width: 100%;
+	 width: 90%;
 }
 
 #nav-bar {
@@ -49,7 +48,7 @@ body {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
+    width: 90%;
 }
 
 
@@ -60,12 +59,13 @@ body {
 .sliding-pizza {
     will-change: transform;
 	 position: fixed;
-    z-index: -1;
+    z-index: inherit;
 }
 
 
 h2 {
 	 width: 100%;
+    text-align: center;
 }
 
 input {
@@ -102,10 +102,12 @@ input {
     font-size: 14px;
 }
 
-.menu-item:after {
-    content: "";
-    display: table;
-    clear:both;
+/* TODO: add media query for smart phone size
+display one menu item per row, just image,
+name and no description.  Or perhaps a description
+formatted as a paragraph rather than a list.
+*/
+@media only screen and (max-width: 400px) {
+
+
 }
-
-

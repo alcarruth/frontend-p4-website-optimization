@@ -628,9 +628,9 @@ function Sliding_Pizzas_Background(rows, cols) {
 function Pizza_App() {
 
 	 // adjust these to suit
-	 var pizza_menu_size = 72;
-	 var sliding_pizza_rows = 10;
-	 var sliding_pizza_cols = 8;
+	 var pizza_menu_size = 200;
+	 var sliding_pizza_rows = 8;
+	 var sliding_pizza_cols = 6;
 
 	 // leave these alone :-)
 	 var pizza_designer = Pizza_Designer();
