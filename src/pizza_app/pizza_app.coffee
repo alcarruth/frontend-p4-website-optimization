@@ -140,7 +140,7 @@ class Include_IMG
         else
             alt = path if not options.alt
             path = runtime_root + path
-            template = ref_template
+            template = @template || ref_template
             template = template.replace('{{href}}', path)
             template = template.replace('{{alt}}', alt)
         return template

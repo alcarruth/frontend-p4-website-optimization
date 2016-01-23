@@ -1,0 +1,21 @@
+{
+  "name": "frontend-p4-website-optimization",
+  "version": "1.0.0",
+  "description": "Udacity FEND Project 4",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alcarruth/frontend-p4-website-optimization.git"
+  },
+  "author": "Al Carruth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alcarruth/frontend-p4-website-optimization/issues"
+  },
+  "homepage": "https://github.com/alcarruth/frontend-p4-website-optimization#readme"
+}

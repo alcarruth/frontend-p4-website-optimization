@@ -26,7 +26,7 @@
 
 
 	 <div id="call-to-action">
-        {{pizzeria_jpg}}
+        <img id="pizzeria-image" src="images/pizzeria_md.jpg" alt="pizzeria image">
 		<div class="row">
 		  <h2>We Have Hundreds of Pizza Recipes! </h2> 
 		  <p> 
@@ -98,7 +98,7 @@
 			 <img class="menu-item-image"	src="{{img_url}}">
 			 <div class="menu-item-description">
 				<h4> {{ name }} </h4>
-				<ul>
+				<ul class="ingredients-list">
 				  {{ #ingredients.meats }} 
 				  <li> {{.}} </li>
 				  {{/ingredients.meats}}

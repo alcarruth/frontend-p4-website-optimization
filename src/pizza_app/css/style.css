@@ -102,6 +102,9 @@ input {
     font-size: 14px;
 }
 
+ul.ingredients-list {
+}
+
 /* TODO: add media query for smart phone size
 display one menu item per row, just image,
 name and no description.  Or perhaps a description
@@ -109,5 +112,27 @@ formatted as a paragraph rather than a list.
 */
 @media only screen and (max-width: 400px) {
 
+    ul.ingredients-list {
+        display: none;
+    }
+
+    .menu-item {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 33%;
+        transform: scale(1);
+    }
+
+    .menu-item-image {
+        width: 30%;
+        height: 30%;
+    }
+
+    .menu-item-description {
+        width: 60%;
+        font-size: 10px;
+    }
 
 }
