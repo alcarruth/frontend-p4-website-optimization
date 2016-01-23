@@ -1,0 +1,1 @@
+function requestAnimationLoop(n,o){function e(){u&&(n(),requestAnimationFrame(e))}function t(){console.log("event_count: "+r),u=!1}function i(){r++,clearTimeout(c),c=setTimeout(t,o),u||(u=!0,console.log("looper_starts: "+ ++a),requestAnimationFrame(e))}var u=!1,r=0,a=0,c=null;return i}
