@@ -1,1 +1,0 @@
-function timer_wrap(r,e,n){return function(){var a,m="mark_start_"+r,t="mark_end_"+r,o="measure_"+r;return window.performance.mark(m),e.apply(this,arguments),window.performance.mark(t),window.performance.measure(o,m,t),a=window.performance.getEntriesByName(o),n(a)}}

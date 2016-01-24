@@ -1,1 +1,0 @@
-function Pizza_App(){function i(){_.init(),o.init()}var n=200,z=8,a=6,p=Pizza_Designer(),_=Pizza_Menu(p,n),o=Sliding_Pizzas_Background(z,a);return{pizza_menu:_,sliding_pizzas:o,init:i}}window.onload=function(){window.pizza_app=Pizza_App(),window.pizza_app.init()};

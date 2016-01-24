@@ -3,11 +3,27 @@
 fs = require('fs')
 
 # frontend-p4-website-optimization root directory
-fend_p4_root = '../../'
-build_src = fend_p4_root + 'src/pizza_app/'
-build_dst = fend_p4_root + 'dist/pizza_app/'
+mobile_portfolio_root = '../'
+build_src = mobile_portfolio_root + 'src/'
+build_dst = mobile_portfolio_root + 'dist/'
 
 runtime_root = ''
+
+# TODO: merge this file with pizza_app.coffee and
+# abstract the common functionality.  There's a lot
+# of repetitive stuff here.
+# 
+# I know, I know. There's grunt, gulp and all that.
+# When I saw all the stuff going on in node_modules,
+# I decided I really didn't know what was going on and
+# maybe I'd roll my own :-) I just felt like once you sort
+# through all the dependencies, there's really not all
+# that much going on.
+#
+# But sorting out the dependencies is not that easy, but
+# I think there's a simple elegant solution hiding in
+# here somewhere.
+# 
 
 class Include_CSS
 
@@ -19,29 +35,18 @@ class Include_CSS
         @minified=false
 
     render: (options) =>
-
-        fname = ''
-        fname += @base
-        fname += @min if options.minified
-        fname += @suffix
-
+        path = ''
+        path += build_dst
+        path += @dir
+        path += @base
+        path += @min if options.minified
+        path += @suffix
         if options.inline
-            
-            path = ''
-            path += build_src
-            path += @dir
-            path += fname
-
             template = inline_template
             css_str = fs.readFileSync(path, 'utf-8')
             template = template.replace('{{css}}', css_str)
         else
-
-            path = ''
-            path += runtime_root
-            path += @dir
-            path += fname
-
+            path = options.root + path if options.root
             template = ref_template
             template = template.replace('{{css_url}}', path)
         return template
@@ -58,30 +63,20 @@ class Include_JS
         @async=false
 
     render: (options) =>
-        fname = ''
-        fname += @base
-        fname += @min if options.minified
-        fname += @suffix
-
+        path = ''
+        path += build_dst
+        path += @dir
+        path += @base
+        path += @min if options.minified
+        path += @suffix
         if options.inline
-
-            path = ''
-            path += build_src
-            path += @dir
-            path += fname
-
             template = inline_template
             inline_str = fs.readFileSync(path, 'utf-8')
             template = template.replace('{{js}}', inline_str)
-            
         else
             flag_str = ' '
             flag_str += 'async ' if options.async
-            path = ''
-            path += runtime_root
-            path += @dir
-            path += fname
-            
+            path = options.root + path if options.root
             template = ref_template
             template = template.replace('{{flags}}', flag_str)
             template = template.replace('{{js_url}}', path)
@@ -105,14 +100,13 @@ class Include_URL
         path += @min if options.minified
         path += @suffix
         if options.inline
-            path = build_src + path
             flag_str = ''
             flag_str += 'async ' if async
             template = inline_template
             inline_str = fs.readFileSync(path, 'utf-8')
             template = template.replace('{{js}}', inline_str)
         else
-            path = runtime_root + path
+            path = options.root + path if options.root
             template = ref_template
             template = template.replace('{{flags}}', flag_str)
             template = template.replace('{{js_url}}', path)
@@ -123,7 +117,7 @@ class Include_IMG
     ref_template = '<img src="{{href}}" alt="{{alt}}">'
     inline_template = ''
 
-    constructor: (@base, @min='-min', @dir='images/', @suffix='.jpg') ->
+    constructor: (@base, @min='-min', @dir='img/', @suffix='.jpg') ->
         @inline = false
         @minified = false
 
@@ -135,12 +129,11 @@ class Include_IMG
         path += @min if options.minified
         path += @suffix
         if options.inline
-            path = build_src + path
             console.log('not implemented yet')
         else
             alt = path if not options.alt
-            path = runtime_root + path
-            template = @template || ref_template
+            path = options.root + path if options.root
+            template = ref_template
             template = template.replace('{{href}}', path)
             template = template.replace('{{alt}}', alt)
         return template
@@ -152,9 +145,7 @@ class HTML_Template
         @subs = {}
 
     load_src: (minified=false) =>
-        path = ''
-        path += build_src
-        path += @dir
+        path = build_src + @dir
         path += @base
         path += @min if minified
         path += @suffix
@@ -182,53 +173,63 @@ class Page
         subs = @build_subs()
         @template.render(subs)
     
-includes_develop =
-    style_css: new Include_CSS('style')
-    pizza_png: new Include_IMG('pizza')
-    pizzeria_jpg: new Include_IMG('pizzeria', min='_md')
-    mustache_js: new Include_JS('mustache', min='.min')
-    timer_js: new Include_JS('timer')
-    animation_loop_js: new Include_JS('animation_loop')
-    pizza_designer_js: new Include_JS('pizza_designer')
-    pizza_menu_js: new Include_JS('pizza_menu')
-    sliding_pizzas_js: new Include_JS('sliding_pizzas')
-    pizza_app_js: new Include_JS('pizza_app')
+includes =
+    open_sans_css: new Include_CSS('open-sans')
+    style_css:  new Include_CSS('style')
+    print_css: new Include_CSS('print')
+    google_analitics_profile_js:  new Include_JS('analytics_profile')
+    google_analytics_js: new Include_JS('analytics')
+    perfmatters_js: new Include_JS('perfmatters')
+    profilepic: new Include_IMG('profilepic', min='-q50')
+    mobilewebdev_jpg: new Include_IMG('mobilewebdev', min='-q50')
+    cam_be_like_jpg: new Include_IMG('cam_be_like', min='-q50')
 
-options_develop =
-    style_css: { minified: false }
-    pizza_png: { minified: false }
-    pizzeria_jpg: { minified: true }
-    mustache_js: { minified: true }
-    timer_js: { minified: false }
-    animation_loop_js: { minified: false }
-    pizza_designer_js: { minified: false }
-    pizza_menu_js: { minified: false }
-    sliding_pizzas_js: { minified: false }
-    pizza_app_js: { minified: false }
+top_dir_options =
+    open_sans_css: { minified: true, inline: true }
+    style_css: { minified: true, inline: true }
+    print_css: { minified: true, inline: true }
+    google_analitics_profile_js:  { minified: true, inline: true }
+    google_analytics_js:  { async: true }
+    perfmatters_js:  { minified: true, inline: true }
+    profilepic:  { minified: true  }
+    mobilewebdev_jpg:  { minified: true }
+    cam_be_like_jpg:  { minified: true }
 
-includes_dist =
-    style_css: new Include_CSS('style')
-    pizza_png: new Include_IMG('pizza')
-    pizzeria_jpg: new Include_IMG('pizzeria', min='_md')
-    mustache_js: new Include_JS('mustache', min='.min')
-    main_js: new Include_JS('main', min='-min')
 
-options_dist =
-    style_css: { minified: false }
-    pizza_png: { minified: false }
-    pizzeria_jpg: { minified: true }
-    mustache_js: { minified: true }
-    main_js: { minified: false }
+subdir_options =
+    open_sans_css: { minified: true, inline: true }
+    style_css: { minified: true, inline: true }
+    print_css: { minified: true, inline: true }
+    google_analitics_profile_js:  { minified: true, inline: true }
+    google_analytics_js:  { async: true, root: '../' }
+    perfmatters_js:  { minified: true, inline: true }
+    profilepic:  { minified: true, root: '../' }
+    mobilewebdev_jpg:  { minified: true, root: '../' }
+    cam_be_like_jpg:  { minified: true, root: '../' }
+
 
 pages = 
-    index_develop: new Page(includes_develop, options_develop, 'index_develop')
-    index_dist: new Page(includes_dist, options_dist, 'index') 
+    index: new Page(includes, top_dir_options, 'index')
+    project_2048: new Page(includes, subdir_options, 'project-2048')
+    project_mobile: new Page(includes, subdir_options, 'project-mobile')
+    project_webperf: new Page(includes, subdir_options, 'project-webperf')
 
-build = ->        
-    #fs.writeFileSync(build_dst + 'index.html', pages.index_dist.render())
-    fs.writeFileSync(build_dst + 'index.html', pages.index_develop.render())
+
+build = ->
+
+   console.log("building index.html") 
+   fs.writeFileSync(build_dst + 'index.html', pages.index.render())
+
+   console.log("building projects/project-2048.html") 
+   fs.writeFileSync(build_dst + 'projects/project-2048.html', pages.project_2048.render())
+
+   console.log("building projects/project-mobile.html") 
+   fs.writeFileSync(build_dst + 'projects/project-mobile.html', pages.project_mobile.render())
+
+   console.log("building projects/project-webperf.html") 
+   fs.writeFileSync(build_dst + 'projects/project-webperf.html', pages.project_webperf.render())
+
+exports.pages = pages
+exports.build = build
 
 build()
-
-
-
