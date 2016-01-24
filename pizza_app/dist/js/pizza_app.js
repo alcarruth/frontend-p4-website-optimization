@@ -4,9 +4,9 @@
 function Pizza_App() {
 
 	 // adjust these to suit
-	 var pizza_menu_size = 200;
-	 var sliding_pizza_rows = 8;
-	 var sliding_pizza_cols = 6;
+	 var pizza_menu_size = 100;
+	 var sliding_pizza_rows = 7;
+	 var sliding_pizza_cols = 8;
 
 	 // leave these alone :-)
 	 var pizza_designer = Pizza_Designer();
