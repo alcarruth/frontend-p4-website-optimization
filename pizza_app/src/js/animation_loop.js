@@ -1,9 +1,9 @@
 
-function animation_loop(foo, dt) {
+function animationLoop(foo, dt) {
 
   var condition = false;
-  var event_count = 0;
-  var looper_starts = 0;
+  var eventCount = 0;
+  var looperStarts = 0;
   var timeout = null;
 
   function looper() {
@@ -13,21 +13,21 @@ function animation_loop(foo, dt) {
     }
   };
 
-  function timeout_handler() {
-    console.log('event_count: ' + event_count);
+  function timeoutHandler() {
+    console.log('eventCount: ' + eventCount);
     condition = false;
   };
 
-  function event_listener() {
-    event_count++;
+  function eventListener() {
+    eventCount++;
     clearTimeout(timeout);
-    timeout = setTimeout(timeout_handler, dt);
+    timeout = setTimeout(timeoutHandler, dt);
     if (!condition) {
       condition = true;
-      console.log('looper_starts: ' + ++looper_starts);
+      console.log('looperStarts: ' + ++looperStarts);
       requestAnimationFrame(looper);
     }
   };
 
-  return event_listener;
+  return eventListener;
 }

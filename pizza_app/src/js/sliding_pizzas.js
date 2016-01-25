@@ -2,7 +2,7 @@
 // sliding_pizzas.js
 
 // constructor for a sliding pizza object
-function Sliding_Pizza(bg, img_src, row, col, sx, sy) {
+function SlidingPizza(bg, imgSrc, row, col, sx, sy) {
 
     var className = 'sliding-pizza';
     var x = col * sx;
@@ -11,14 +11,14 @@ function Sliding_Pizza(bg, img_src, row, col, sx, sy) {
     var dx, dy;
 
     img.className = className;
-    img.src = img_src;
+    img.src = imgSrc;
     //img.style.height = height;
     //img.style.width = width;
     img.style.left = x + 'px';
     img.style.top = y + 'px';
     bg.appendChild(img);
 
-    function update_position(dx, dy) {
+    function updatePosition(dx, dy) {
         img.style.transform = 'translateX(' + dx + 'px)';
     }
 
@@ -33,12 +33,12 @@ function Sliding_Pizza(bg, img_src, row, col, sx, sy) {
         sy: sy,
         dx: 0,
         dy: 0,
-        update_position: update_position
+        updatePosition: updatePosition
     }
 }
 
 // constructor
-function Sliding_Pizzas_Background(rows, cols) {
+function SlidingPizzasBackground(rows, cols) {
 
     var bg;           // background element
     var pizzas = [];  // array of sliding pizzas
@@ -47,9 +47,9 @@ function Sliding_Pizzas_Background(rows, cols) {
     var frame = 0;    // frame count
 	 
 	 // method
-    function generate_sliding_pizzas() {
+    function generateSlidingPizzas() {
 
-        var img_src = "images/pizza-blk-bg-sm.jpg";
+        var imgSrc = "images/pizza-blk-bg-sm.jpg";
         //var height = "100px";
         //var width = "73.333px";
 
@@ -57,15 +57,15 @@ function Sliding_Pizzas_Background(rows, cols) {
 
         for (var row = 0; row < rows; row++) {
             for (var col = 0; col < cols; col++) {
-                pizza = Sliding_Pizza(bg, img_src, row, col, sx, sy);
+                pizza = SlidingPizza(bg, imgSrc, row, col, sx, sy);
                 pizzas.push(pizza);
             }
         }
-        update_positions();
+        updatePositions();
     }
 
-	 // method update_positions()
-    function update_positions() {
+	 // method updatePositions()
+    function updatePositions() {
 
 		  var i, j, phase;
 		  var top = document.body.scrollTop;
@@ -74,31 +74,31 @@ function Sliding_Pizzas_Background(rows, cols) {
 		  for (i = 0; i < 5; i++) {
 				phase = Math.sin((top / 1250) + i);
 				for (j = i; j < pizzas.length; j += 5) {
-					 pizzas[j].update_position(100 * phase, 0);
+					 pizzas[j].updatePosition(100 * phase, 0);
 				}
 		  }
     }
 
-	 function log_update_times(times) {
-		  var sample_size = 100;
+	 function logUpdateTimes(times) {
+		  var sampleSize = 100;
 		  var sum = 0;
-		  var msg = "Average time to generate last " + sample_size + " frames: "
-        if (times.length % sample_size == 0) {
-		      for (var i = times.length-sample_size; i < times.length; i++) {
+		  var msg = "Average time to generate last " + sampleSize + " frames: "
+        if (times.length % sampleSize == 0) {
+		      for (var i = times.length-sampleSize; i < times.length; i++) {
 				    sum = sum + times[i].duration;
 		      }
-		      console.log(msg + sum / sample_size + "ms");
+		      console.log(msg + sum / sampleSize + "ms");
         };
 	 }
 
 	 // method init()
 	 function init() {
 		  if (false) {
-				update_positions = timer_wrap('update', update_positions, log_update_times);
+				updatePositions = timerWrap('update', updatePositions, logUpdateTimes);
 		  }
-        window.addEventListener('scroll', animation_loop(update_positions, 300));
+        window.addEventListener('scroll', animationLoop(updatePositions, 300));
 
-		  generate_sliding_pizzas();	
+		  generateSlidingPizzas();	
 	 }
 
    return {
@@ -108,8 +108,8 @@ function Sliding_Pizzas_Background(rows, cols) {
         sy: sy,
         pizzas: pizzas,
         bg: bg,
-		  update_positions: update_positions,
-		  generate_sliding_pizzas: generate_sliding_pizzas,
+		  updatePositions: updatePositions,
+		  generateSlidingPizzas: generateSlidingPizzas,
         init: init
     }
 }

@@ -1,5 +1,5 @@
 
-Pizza_Designer = function() {
+PizzaDesigner = function() {
 
 	 // pizza ingredients
 
@@ -15,7 +15,7 @@ Pizza_Designer = function() {
 				"Guanciale", "Chili", "Beef Jerky", "Pastrami", "Kielbasa", 
 				"Scallops", "Filet Mignon" ],
 
-		  non_meats: [
+		  nonMeats: [
 				"White Onions", "Red Onions", "Sauteed Onions", 
 				"Green Peppers", "Red Peppers", "Banana Peppers",
 				"Ghost Peppers", "Habanero Peppers", "Jalapeno Peppers",
@@ -287,7 +287,7 @@ Pizza_Designer = function() {
 	 //--------------------------------------------------------
 	 // random selection from list
 	 //
-	 function choose_one(list) {
+	 function chooseOne(list) {
 		  var i = Math.floor( Math.random() * list.length);
 		  return list[i];
 	 }
@@ -299,10 +299,10 @@ Pizza_Designer = function() {
 	 // arg nums is a list of the allowable number of items
 	 // to choose.
 	 //
-	 function choose_some(list, nums) {
+	 function chooseSome(list, nums) {
 		  var chosen = [];
-		  for (var i=0; i<choose_one(nums); i++) {
-				chosen.push(choose_one(list));
+		  for (var i=0; i<chooseOne(nums); i++) {
+				chosen.push(chooseOne(list));
 		  }
 		  return chosen;
 	 }
@@ -319,27 +319,27 @@ Pizza_Designer = function() {
 	 }
 
 	 var meats = ingredients.meats;
-	 var non_meats = ingredients.non_meats;
+	 var nonMeats = ingredients.nonMeats;
 	 var cheeses = ingredients.cheeses;
 	 var sauces = ingredients.sauces;
 	 var crusts = ingredients.crusts;
 	 var adjectives = flatten(adjectives);
 	 var nouns = flatten(nouns);
 
-	 function random_ingredients() {
+	 function randomIngredients() {
 		  var ingredients = {
-				meats: choose_some(meats, [0,1,2,3]),
-				non_meats: choose_some(non_meats, [0,1,2]),
-				cheeses: choose_some(cheeses, [0,1,2]),
-				sauce: choose_one(sauces),
-				crust: choose_one(crusts),
+				meats: chooseSome(meats, [0,1,2,3]),
+				nonMeats: chooseSome(nonMeats, [0,1,2]),
+				cheeses: chooseSome(cheeses, [0,1,2]),
+				sauce: chooseOne(sauces),
+				crust: chooseOne(crusts),
 		  };
 		  return ingredients;
 	 }
 
-	 function random_pizza_name() {
-		  var noun = choose_one(nouns);
-		  var adjective = choose_one(adjectives);
+	 function randomPizzaName() {
+		  var noun = chooseOne(nouns);
+		  var adjective = chooseOne(adjectives);
 		  return 'The ' + adjective + ' ' + noun;
 	 }
 
@@ -357,14 +357,14 @@ Pizza_Designer = function() {
 		dine in, or take'n'bake, it' up to you!
 	 */
 
-	 function random_pizza(id) {
+	 function randomPizza(id) {
 		  return {
 				id: id,
-				name: random_pizza_name(),
-				ingredients: random_ingredients(),
-				img_url: 'images/pizza.png'
+				name: randomPizzaName(),
+				ingredients: randomIngredients(),
+				imgURL: 'images/pizza.png'
 		  };
 	 }
 
-	 return random_pizza;
+	 return randomPizza;
 }

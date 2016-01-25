@@ -84,7 +84,7 @@
 		</div>
 	 </div>
 
-	 <div id="size_selector">
+	 <div id="size-selector">
 		<h2>Our Pizzas! </h2>
 		<em> What size pizza would you like? Use the slider below to change pizza sizes.</em>
 		<div id="pizza-size"> Medium  </div>
@@ -95,16 +95,16 @@
 		<script id="pizza-menu-template" type="text/html">
 		  {{#pizzas}}
 		  <div id="{{id}}" class="menu-item">
-			 <img class="menu-item-image"	src="{{img_url}}">
+			 <img class="menu-item-image"	src="{{imgURL}}">
 			 <div class="menu-item-description">
 				<h4> {{ name }} </h4>
 				<ul class="ingredients-list">
 				  {{ #ingredients.meats }} 
 				  <li> {{.}} </li>
 				  {{/ingredients.meats}}
-				  {{#ingredients.non_meats}} 
+				  {{#ingredients.nonMeats}} 
 				  <li> {{.}} </li>
-				  {{/ingredients.non_meats}}
+				  {{/ingredients.nonMeats}}
 				  {{#ingredients.cheeses}} 
 				  <li> {{.}} </li>
 				  {{/ingredients.cheeses}} 

@@ -1,19 +1,19 @@
 
-function timer_wrap(unique_id, func, cb) {
+function timerWrap(uniqueID, func, cb) {
 
 	 return function() {
 				
-		  var mark_start = "mark_start_" + unique_id;
-		  var mark_end = "mark_end_" + unique_id;
-		  var measure = "measure_" + unique_id;
+		  var markStart = "markStart_" + uniqueID;
+		  var markEnd = "markEnd_" + uniqueID;
+		  var measure = "measure_" + uniqueID;
 		  var times;
         
-		  window.performance.mark(mark_start);
+		  window.performance.mark(markStart);
 		  
 		  func.apply(this, arguments); // the function call to be timed
         
-		  window.performance.mark(mark_end);
-		  window.performance.measure(measure, mark_start, mark_end);
+		  window.performance.mark(markEnd);
+		  window.performance.measure(measure, markStart, markEnd);
 		  times = window.performance.getEntriesByName(measure);
         
 		  return cb(times);

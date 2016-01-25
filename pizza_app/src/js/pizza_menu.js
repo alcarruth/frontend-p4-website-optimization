@@ -1,78 +1,78 @@
 
 
-// Pizza_Menu: pseudo class constructor
+// PizzaMenu: pseudo class constructor
 //
 //  - returns a plain javascript object (aka 'dict', 'hash')
 //
 //  - assumes the existence of the following externals:
 //    - function Timer()
-//    - function Pizza_Designer()
+//    - function PizzaDesigner()
 
-function Pizza_Menu( pizza_designer, pizza_menu_size) {
+function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 
 	 // array pizzas holds the pizzas returned by the calls
-	 // to pizza_designer in generate_pizzas() below
+	 // to pizzaDesigner in generatePizzas() below
 	 var pizzas = [];
 
 	 // the following properties are initialized in 
 	 // method init() below.
-	 var pizza_size;
-	 var size_slider;
-	 var pizza_menu;
-	 var pizza_menu_template;
+	 var pizzaSize;
+	 var sizeSlider;
+	 var pizzaMenu;
+	 var pizzaMenuTemplate;
 
     //---------------------------------------------------------------------------------
 
-	 function resize_pizzas(size) { 
+	 function resizePizzas(size) { 
 		  var text = { 1: "Small", 2: "Medium", 3: "Large" }[size];
 		  var width = { 1: '25%', 2: '33%', 3: '50%' }[size];
-		  pizza_size.innerHTML = text;
+		  pizzaSize.innerHTML = text;
 		  for (var i=0; i<pizzas.length; i++) {
 				pizzas[i].element.style.width = width;
 		  }
     }
 
-    function log_resize(times) {
-		  console.log("Time to resize pizzas: " + times[0].duration + "ms")
+    function logResize(times) {
+		  console.log("Time to resize pizzas: " + times[times.length-1].duration + "ms")
     }
 
-    var timed_resize_pizzas =  timer_wrap("resize", resize_pizzas, log_resize);
+    var timedResizePizzas =  timerWrap("resize", resizePizzas, logResize);
 
     //---------------------------------------------------------------------------------
 
-	 function generate_pizzas() {
+	 function generatePizzas() {
 		  var pizza;
-		  for (var i=0; i < pizza_menu_size; i++) {
-				pizza = pizza_designer('pizza_' + i);
+		  for (var i=0; i < pizzaMenuSize; i++) {
+				pizza = pizzaDesigner('pizza_' + i);
 				pizzas.push(pizza);
 		  }
-		  pizza_menu.innerHTML = Mustache.render(pizza_menu_template, {pizzas: pizzas});
+		  pizzaMenu.innerHTML = Mustache.render(pizzaMenuTemplate, {pizzas: pizzas});
 		  for (i in pizzas) {
 				pizza = pizzas[i];
 				pizza.element = document.getElementById(pizza.id);
 		  }
 	 }
 
-    function log_generate(times) {
+    function logGenerate(times) {
 		  console.log("Time to generate pizzas on load: " + times[0].duration + "ms");
     }
         
-    var timed_generate_pizzas = timer_wrap('generate', generate_pizzas, log_generate);
+    var timedGeneratePizzas = timerWrap('generate', generatePizzas, logGenerate);
 
     //---------------------------------------------------------------------------------
 
 	 function init() {
-		  pizza_size = document.querySelector("#pizza-size");
-		  size_slider = document.querySelector("#size-slider");
-		  //size_slider.resize_pizzas = resize_pizzas;
-	     //size_slider.resize_pizzas = timed_resize_pizzas;
-		  size_slider.onchange = function(){
-				timed_resize_pizzas(this.value);
+		  pizzaSize = document.querySelector("#pizza-size");
+		  sizeSlider = document.querySelector("#size-slider");
+		  //sizeSlider.resizePizzas = resizePizzas;
+	     //sizeSlider.resizePizzas = timedResizePizzas;
+		  sizeSlider.onchange = function(){
+				timedResizePizzas(this.value);
 		  }
-		  pizza_menu = document.getElementById("pizza-menu");
-		  pizza_menu_template = document.getElementById('pizza-menu-template').innerHTML;
-        //generate_pizzas();
-        timed_generate_pizzas();
+		  pizzaMenu = document.getElementById("pizza-menu");
+		  pizzaMenuTemplate = document.getElementById('pizza-menu-template').innerHTML;
+        //generatePizzas();
+        timedGeneratePizzas();
     }
 
 	 return {

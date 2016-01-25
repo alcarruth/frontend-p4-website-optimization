@@ -1,31 +1,31 @@
 //------------------------------------------------------------------------------------------------------
 // main.js
 
-function Pizza_App() {
+function PizzaApp() {
 
 	 // adjust these to suit
-	 var pizza_menu_size = 200;
-	 var sliding_pizza_rows = 8;
-	 var sliding_pizza_cols = 6;
+	 var pizzaMenuSize = 100;
+	 var slidingPizzaRows = 6;
+	 var slidingPizzaCols = 8;
 
 	 // leave these alone :-)
-	 var pizza_designer = Pizza_Designer();
-	 var pizza_menu = Pizza_Menu( pizza_designer, pizza_menu_size);
-	 var sliding_pizzas = Sliding_Pizzas_Background(sliding_pizza_rows, sliding_pizza_cols);
+	 var pizzaDesigner = PizzaDesigner();
+	 var pizzaMenu = PizzaMenu( pizzaDesigner, pizzaMenuSize);
+	 var slidingPizzas = SlidingPizzasBackground(slidingPizzaRows, slidingPizzaCols);
 
 	 function init() {
-		  pizza_menu.init();
-		  sliding_pizzas.init();
+		  pizzaMenu.init();
+		  slidingPizzas.init();
 	 }
 
 	 return {
-		  pizza_menu: pizza_menu,
-		  sliding_pizzas: sliding_pizzas,
+		  pizzaMenu: pizzaMenu,
+		  slidingPizzas: slidingPizzas,
 		  init: init
 	 };
 }
 
 window.onload = function() {
-	 window.pizza_app = Pizza_App();
-	 window.pizza_app.init();
+	 window.pizzaApp = PizzaApp();
+	 window.pizzaApp.init();
 }

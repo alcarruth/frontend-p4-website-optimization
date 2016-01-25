@@ -1,9 +1,9 @@
 
-function animation_loop(foo, dt) {
+function animationLoop(foo, dt) {
 
   var condition = false;
-  var event_count = 0;
-  var looper_starts = 0;
+  var eventCount = 0;
+  var looperStarts = 0;
   var timeout = null;
 
   function looper() {
@@ -13,40 +13,40 @@ function animation_loop(foo, dt) {
     }
   };
 
-  function timeout_handler() {
-    console.log('event_count: ' + event_count);
+  function timeoutHandler() {
+    console.log('eventCount: ' + eventCount);
     condition = false;
   };
 
-  function event_listener() {
-    event_count++;
+  function eventListener() {
+    eventCount++;
     clearTimeout(timeout);
-    timeout = setTimeout(timeout_handler, dt);
+    timeout = setTimeout(timeoutHandler, dt);
     if (!condition) {
       condition = true;
-      console.log('looper_starts: ' + ++looper_starts);
+      console.log('looperStarts: ' + ++looperStarts);
       requestAnimationFrame(looper);
     }
   };
 
-  return event_listener;
+  return eventListener;
 }
 
-function timer_wrap(unique_id, func, cb) {
+function timerWrap(uniqueID, func, cb) {
 
 	 return function() {
 				
-		  var mark_start = "mark_start_" + unique_id;
-		  var mark_end = "mark_end_" + unique_id;
-		  var measure = "measure_" + unique_id;
+		  var markStart = "markStart_" + uniqueID;
+		  var markEnd = "markEnd_" + uniqueID;
+		  var measure = "measure_" + uniqueID;
 		  var times;
         
-		  window.performance.mark(mark_start);
+		  window.performance.mark(markStart);
 		  
 		  func.apply(this, arguments); // the function call to be timed
         
-		  window.performance.mark(mark_end);
-		  window.performance.measure(measure, mark_start, mark_end);
+		  window.performance.mark(markEnd);
+		  window.performance.measure(measure, markStart, markEnd);
 		  times = window.performance.getEntriesByName(measure);
         
 		  return cb(times);
@@ -54,7 +54,7 @@ function timer_wrap(unique_id, func, cb) {
 }
 
 
-Pizza_Designer = function() {
+PizzaDesigner = function() {
 
 	 // pizza ingredients
 
@@ -70,7 +70,7 @@ Pizza_Designer = function() {
 				"Guanciale", "Chili", "Beef Jerky", "Pastrami", "Kielbasa", 
 				"Scallops", "Filet Mignon" ],
 
-		  non_meats: [
+		  nonMeats: [
 				"White Onions", "Red Onions", "Sauteed Onions", 
 				"Green Peppers", "Red Peppers", "Banana Peppers",
 				"Ghost Peppers", "Habanero Peppers", "Jalapeno Peppers",
@@ -342,7 +342,7 @@ Pizza_Designer = function() {
 	 //--------------------------------------------------------
 	 // random selection from list
 	 //
-	 function choose_one(list) {
+	 function chooseOne(list) {
 		  var i = Math.floor( Math.random() * list.length);
 		  return list[i];
 	 }
@@ -354,10 +354,10 @@ Pizza_Designer = function() {
 	 // arg nums is a list of the allowable number of items
 	 // to choose.
 	 //
-	 function choose_some(list, nums) {
+	 function chooseSome(list, nums) {
 		  var chosen = [];
-		  for (var i=0; i<choose_one(nums); i++) {
-				chosen.push(choose_one(list));
+		  for (var i=0; i<chooseOne(nums); i++) {
+				chosen.push(chooseOne(list));
 		  }
 		  return chosen;
 	 }
@@ -374,27 +374,27 @@ Pizza_Designer = function() {
 	 }
 
 	 var meats = ingredients.meats;
-	 var non_meats = ingredients.non_meats;
+	 var nonMeats = ingredients.nonMeats;
 	 var cheeses = ingredients.cheeses;
 	 var sauces = ingredients.sauces;
 	 var crusts = ingredients.crusts;
 	 var adjectives = flatten(adjectives);
 	 var nouns = flatten(nouns);
 
-	 function random_ingredients() {
+	 function randomIngredients() {
 		  var ingredients = {
-				meats: choose_some(meats, [0,1,2,3]),
-				non_meats: choose_some(non_meats, [0,1,2]),
-				cheeses: choose_some(cheeses, [0,1,2]),
-				sauce: choose_one(sauces),
-				crust: choose_one(crusts),
+				meats: chooseSome(meats, [0,1,2,3]),
+				nonMeats: chooseSome(nonMeats, [0,1,2]),
+				cheeses: chooseSome(cheeses, [0,1,2]),
+				sauce: chooseOne(sauces),
+				crust: chooseOne(crusts),
 		  };
 		  return ingredients;
 	 }
 
-	 function random_pizza_name() {
-		  var noun = choose_one(nouns);
-		  var adjective = choose_one(adjectives);
+	 function randomPizzaName() {
+		  var noun = chooseOne(nouns);
+		  var adjective = chooseOne(adjectives);
 		  return 'The ' + adjective + ' ' + noun;
 	 }
 
@@ -412,92 +412,92 @@ Pizza_Designer = function() {
 		dine in, or take'n'bake, it' up to you!
 	 */
 
-	 function random_pizza(id) {
+	 function randomPizza(id) {
 		  return {
 				id: id,
-				name: random_pizza_name(),
-				ingredients: random_ingredients(),
-				img_url: 'images/pizza.png'
+				name: randomPizzaName(),
+				ingredients: randomIngredients(),
+				imgURL: 'images/pizza.png'
 		  };
 	 }
 
-	 return random_pizza;
+	 return randomPizza;
 }
 
 
-// Pizza_Menu: pseudo class constructor
+// PizzaMenu: pseudo class constructor
 //
 //  - returns a plain javascript object (aka 'dict', 'hash')
 //
 //  - assumes the existence of the following externals:
 //    - function Timer()
-//    - function Pizza_Designer()
+//    - function PizzaDesigner()
 
-function Pizza_Menu( pizza_designer, pizza_menu_size) {
+function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 
 	 // array pizzas holds the pizzas returned by the calls
-	 // to pizza_designer in generate_pizzas() below
+	 // to pizzaDesigner in generatePizzas() below
 	 var pizzas = [];
 
 	 // the following properties are initialized in 
 	 // method init() below.
-	 var pizza_size;
-	 var size_slider;
-	 var pizza_menu;
-	 var pizza_menu_template;
+	 var pizzaSize;
+	 var sizeSlider;
+	 var pizzaMenu;
+	 var pizzaMenuTemplate;
 
     //---------------------------------------------------------------------------------
 
-	 function resize_pizzas(size) { 
+	 function resizePizzas(size) { 
 		  var text = { 1: "Small", 2: "Medium", 3: "Large" }[size];
 		  var width = { 1: '25%', 2: '33%', 3: '50%' }[size];
-		  pizza_size.innerHTML = text;
+		  pizzaSize.innerHTML = text;
 		  for (var i=0; i<pizzas.length; i++) {
 				pizzas[i].element.style.width = width;
 		  }
     }
 
-    function log_resize(times) {
-		  console.log("Time to resize pizzas: " + times[0].duration + "ms")
+    function logResize(times) {
+		  console.log("Time to resize pizzas: " + times[times.length-1].duration + "ms")
     }
 
-    var timed_resize_pizzas =  timer_wrap("resize", resize_pizzas, log_resize);
+    var timedResizePizzas =  timerWrap("resize", resizePizzas, logResize);
 
     //---------------------------------------------------------------------------------
 
-	 function generate_pizzas() {
+	 function generatePizzas() {
 		  var pizza;
-		  for (var i=0; i < pizza_menu_size; i++) {
-				pizza = pizza_designer('pizza_' + i);
+		  for (var i=0; i < pizzaMenuSize; i++) {
+				pizza = pizzaDesigner('pizza_' + i);
 				pizzas.push(pizza);
 		  }
-		  pizza_menu.innerHTML = Mustache.render(pizza_menu_template, {pizzas: pizzas});
+		  pizzaMenu.innerHTML = Mustache.render(pizzaMenuTemplate, {pizzas: pizzas});
 		  for (i in pizzas) {
 				pizza = pizzas[i];
 				pizza.element = document.getElementById(pizza.id);
 		  }
 	 }
 
-    function log_generate(times) {
+    function logGenerate(times) {
 		  console.log("Time to generate pizzas on load: " + times[0].duration + "ms");
     }
         
-    var timed_generate_pizzas = timer_wrap('generate', generate_pizzas, log_generate);
+    var timedGeneratePizzas = timerWrap('generate', generatePizzas, logGenerate);
 
     //---------------------------------------------------------------------------------
 
 	 function init() {
-		  pizza_size = document.querySelector("#pizza-size");
-		  size_slider = document.querySelector("#size-slider");
-		  //size_slider.resize_pizzas = resize_pizzas;
-	     //size_slider.resize_pizzas = timed_resize_pizzas;
-		  size_slider.onchange = function(){
-				timed_resize_pizzas(this.value);
+		  pizzaSize = document.querySelector("#pizza-size");
+		  sizeSlider = document.querySelector("#size-slider");
+		  //sizeSlider.resizePizzas = resizePizzas;
+	     //sizeSlider.resizePizzas = timedResizePizzas;
+		  sizeSlider.onchange = function(){
+				timedResizePizzas(this.value);
 		  }
-		  pizza_menu = document.getElementById("pizza-menu");
-		  pizza_menu_template = document.getElementById('pizza-menu-template').innerHTML;
-        //generate_pizzas();
-        timed_generate_pizzas();
+		  pizzaMenu = document.getElementById("pizza-menu");
+		  pizzaMenuTemplate = document.getElementById('pizza-menu-template').innerHTML;
+        //generatePizzas();
+        timedGeneratePizzas();
     }
 
 	 return {
@@ -509,7 +509,7 @@ function Pizza_Menu( pizza_designer, pizza_menu_size) {
 // sliding_pizzas.js
 
 // constructor for a sliding pizza object
-function Sliding_Pizza(bg, img_src, row, col, sx, sy) {
+function SlidingPizza(bg, imgSrc, row, col, sx, sy) {
 
     var className = 'sliding-pizza';
     var x = col * sx;
@@ -518,14 +518,14 @@ function Sliding_Pizza(bg, img_src, row, col, sx, sy) {
     var dx, dy;
 
     img.className = className;
-    img.src = img_src;
+    img.src = imgSrc;
     //img.style.height = height;
     //img.style.width = width;
     img.style.left = x + 'px';
     img.style.top = y + 'px';
     bg.appendChild(img);
 
-    function update_position(dx, dy) {
+    function updatePosition(dx, dy) {
         img.style.transform = 'translateX(' + dx + 'px)';
     }
 
@@ -540,12 +540,12 @@ function Sliding_Pizza(bg, img_src, row, col, sx, sy) {
         sy: sy,
         dx: 0,
         dy: 0,
-        update_position: update_position
+        updatePosition: updatePosition
     }
 }
 
 // constructor
-function Sliding_Pizzas_Background(rows, cols) {
+function SlidingPizzasBackground(rows, cols) {
 
     var bg;           // background element
     var pizzas = [];  // array of sliding pizzas
@@ -554,9 +554,9 @@ function Sliding_Pizzas_Background(rows, cols) {
     var frame = 0;    // frame count
 	 
 	 // method
-    function generate_sliding_pizzas() {
+    function generateSlidingPizzas() {
 
-        var img_src = "images/pizza-blk-bg-sm.jpg";
+        var imgSrc = "images/pizza-blk-bg-sm.jpg";
         //var height = "100px";
         //var width = "73.333px";
 
@@ -564,15 +564,15 @@ function Sliding_Pizzas_Background(rows, cols) {
 
         for (var row = 0; row < rows; row++) {
             for (var col = 0; col < cols; col++) {
-                pizza = Sliding_Pizza(bg, img_src, row, col, sx, sy);
+                pizza = SlidingPizza(bg, imgSrc, row, col, sx, sy);
                 pizzas.push(pizza);
             }
         }
-        update_positions();
+        updatePositions();
     }
 
-	 // method update_positions()
-    function update_positions() {
+	 // method updatePositions()
+    function updatePositions() {
 
 		  var i, j, phase;
 		  var top = document.body.scrollTop;
@@ -581,31 +581,31 @@ function Sliding_Pizzas_Background(rows, cols) {
 		  for (i = 0; i < 5; i++) {
 				phase = Math.sin((top / 1250) + i);
 				for (j = i; j < pizzas.length; j += 5) {
-					 pizzas[j].update_position(100 * phase, 0);
+					 pizzas[j].updatePosition(100 * phase, 0);
 				}
 		  }
     }
 
-	 function log_update_times(times) {
-		  var sample_size = 100;
+	 function logUpdateTimes(times) {
+		  var sampleSize = 100;
 		  var sum = 0;
-		  var msg = "Average time to generate last " + sample_size + " frames: "
-        if (times.length % sample_size == 0) {
-		      for (var i = times.length-sample_size; i < times.length; i++) {
+		  var msg = "Average time to generate last " + sampleSize + " frames: "
+        if (times.length % sampleSize == 0) {
+		      for (var i = times.length-sampleSize; i < times.length; i++) {
 				    sum = sum + times[i].duration;
 		      }
-		      console.log(msg + sum / sample_size + "ms");
+		      console.log(msg + sum / sampleSize + "ms");
         };
 	 }
 
 	 // method init()
 	 function init() {
 		  if (false) {
-				update_positions = timer_wrap('update', update_positions, log_update_times);
+				updatePositions = timerWrap('update', updatePositions, logUpdateTimes);
 		  }
-        window.addEventListener('scroll', animation_loop(update_positions, 300));
+        window.addEventListener('scroll', animationLoop(updatePositions, 300));
 
-		  generate_sliding_pizzas();	
+		  generateSlidingPizzas();	
 	 }
 
    return {
@@ -615,8 +615,8 @@ function Sliding_Pizzas_Background(rows, cols) {
         sy: sy,
         pizzas: pizzas,
         bg: bg,
-		  update_positions: update_positions,
-		  generate_sliding_pizzas: generate_sliding_pizzas,
+		  updatePositions: updatePositions,
+		  generateSlidingPizzas: generateSlidingPizzas,
         init: init
     }
 }
@@ -625,31 +625,31 @@ function Sliding_Pizzas_Background(rows, cols) {
 //------------------------------------------------------------------------------------------------------
 // main.js
 
-function Pizza_App() {
+function PizzaApp() {
 
 	 // adjust these to suit
-	 var pizza_menu_size = 200;
-	 var sliding_pizza_rows = 8;
-	 var sliding_pizza_cols = 6;
+	 var pizzaMenuSize = 100;
+	 var slidingPizzaRows = 6;
+	 var slidingPizzaCols = 8;
 
 	 // leave these alone :-)
-	 var pizza_designer = Pizza_Designer();
-	 var pizza_menu = Pizza_Menu( pizza_designer, pizza_menu_size);
-	 var sliding_pizzas = Sliding_Pizzas_Background(sliding_pizza_rows, sliding_pizza_cols);
+	 var pizzaDesigner = PizzaDesigner();
+	 var pizzaMenu = PizzaMenu( pizzaDesigner, pizzaMenuSize);
+	 var slidingPizzas = SlidingPizzasBackground(slidingPizzaRows, slidingPizzaCols);
 
 	 function init() {
-		  pizza_menu.init();
-		  sliding_pizzas.init();
+		  pizzaMenu.init();
+		  slidingPizzas.init();
 	 }
 
 	 return {
-		  pizza_menu: pizza_menu,
-		  sliding_pizzas: sliding_pizzas,
+		  pizzaMenu: pizzaMenu,
+		  slidingPizzas: slidingPizzas,
 		  init: init
 	 };
 }
 
 window.onload = function() {
-	 window.pizza_app = Pizza_App();
-	 window.pizza_app.init();
+	 window.pizzaApp = PizzaApp();
+	 window.pizzaApp.init();
 }
