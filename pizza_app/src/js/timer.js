@@ -1,4 +1,17 @@
-
+//------------------------------------------------------------------------------
+// Function timerWrap() generalizes the timing code from the original project.
+//
+// It is used in this project to wrap three functions:
+// - resizePizzas()
+// - generatePizzas()
+// - updatePositions()
+//
+// arguments:
+// - uniqueID a string used to construct the 'mark' and 'measure' strings
+// - func: the function to be wrapped.
+// - cb: a callback to be applied to the times array,
+//       always a logging function in this project.
+//
 function timerWrap(uniqueID, func, cb) {
 
 	 return function() {
@@ -19,4 +32,6 @@ function timerWrap(uniqueID, func, cb) {
 		  return cb(times);
 	 }
 }
+
+
 

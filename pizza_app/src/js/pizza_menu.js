@@ -1,12 +1,10 @@
 
-
-// PizzaMenu: pseudo class constructor
+//--------------------------------------------------------------------------------------
+// PizzaMenu: class constructor
 //
-//  - returns a plain javascript object (aka 'dict', 'hash')
-//
-//  - assumes the existence of the following externals:
-//    - function Timer()
-//    - function PizzaDesigner()
+//  PizzaMenu requires:
+//  - function Timer() (from timer.js)
+//  - function PizzaDesigner() (from pizza_designer.js)
 
 function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 
@@ -19,10 +17,18 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 	 var pizzaSize;
 	 var sizeSlider;
 	 var pizzaMenu;
+
+    // pizzaMenuTemplate is a mustache template included in index.html.
+    // It is initialized and used in generatePizzas() below.
 	 var pizzaMenuTemplate;
 
     //---------------------------------------------------------------------------------
 
+    // Just the pure slider logic here.
+    // The select statements have been replaced with obj literals.
+    // The timing code has been extracted and generalized in timer.js
+    // And the logging code has been put in a separate function (below)
+    //
 	 function resizePizzas(size) { 
 		  var text = { 1: "Small", 2: "Medium", 3: "Large" }[size];
 		  var width = { 1: '25%', 2: '33%', 3: '50%' }[size];
@@ -32,20 +38,28 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 		  }
     }
 
+    // function logResize() is passed timer during init()
     function logResize(times) {
 		  console.log("Time to resize pizzas: " + times[times.length-1].duration + "ms")
     }
 
-    var timedResizePizzas =  timerWrap("resize", resizePizzas, logResize);
-
     //---------------------------------------------------------------------------------
 
+    // generatePizzas() is called from init() when the page is loaded.
+    // The timing code has been extracted and generalized in timer.js
+    // And the logging code has been put in a separate function (below)
+    //
 	 function generatePizzas() {
 		  var pizza;
+
+        // create the "semantic" pizzas (see pizza_designer.js)
 		  for (var i=0; i < pizzaMenuSize; i++) {
 				pizza = pizzaDesigner('pizza_' + i);
 				pizzas.push(pizza);
 		  }
+        // get the template from the document and render the html views for
+        // the pizzas on the menu.
+		  pizzaMenuTemplate = document.getElementById('pizza-menu-template').innerHTML;
 		  pizzaMenu.innerHTML = Mustache.render(pizzaMenuTemplate, {pizzas: pizzas});
 		  for (i in pizzas) {
 				pizza = pizzas[i];
@@ -53,30 +67,32 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 		  }
 	 }
 
+    // function logGenerate()  is passed timer during init()
     function logGenerate(times) {
 		  console.log("Time to generate pizzas on load: " + times[0].duration + "ms");
     }
-        
-    var timedGeneratePizzas = timerWrap('generate', generatePizzas, logGenerate);
 
     //---------------------------------------------------------------------------------
 
 	 function init() {
+
+        // hook into the html
 		  pizzaSize = document.querySelector("#pizza-size");
 		  sizeSlider = document.querySelector("#size-slider");
-		  //sizeSlider.resizePizzas = resizePizzas;
-	     //sizeSlider.resizePizzas = timedResizePizzas;
-		  sizeSlider.onchange = function(){
-				timedResizePizzas(this.value);
-		  }
 		  pizzaMenu = document.getElementById("pizza-menu");
-		  pizzaMenuTemplate = document.getElementById('pizza-menu-template').innerHTML;
-        //generatePizzas();
-        timedGeneratePizzas();
+
+        // hook resizePizzas() to the slider
+		  sizeSlider.onchange = timerWrap("resize", resizePizzas, logResize);
+
+        // run generatePizzas()
+        timerWrap('generate', generatePizzas, logGenerate)();
     }
 
 	 return {
 		  init: init,
 		  pizzas: pizzas,
     }
-}
+
+} // end PizzaMenu: class constructor
+
+

@@ -1,12 +1,12 @@
 //------------------------------------------------------------------------------------------------------
-// main.js
+// class PizzaApp
+//
 
 function PizzaApp() {
 
 	 // adjust these to suit
-
 	 var pizzaMenuSize = 100;
-	 var slidingPizzaRows = 6;
+	 var slidingPizzaRows = 5;
 	 var slidingPizzaCols = 8;
 
 	 // leave these alone :-)

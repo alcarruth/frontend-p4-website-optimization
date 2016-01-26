@@ -52,9 +52,41 @@ body {
 }
 
 
-#sliding-pizzas {
+#sliding-pizzas-1 {
     will-change: transform;
     z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#sliding-pizzas-2 {
+    will-change: transform;
+    z-index: -2;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#sliding-pizzas-3 {
+    will-change: transform;
+    z-index: -3;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#sliding-pizzas-4 {
+    will-change: transform;
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+#sliding-pizzas-5 {
+    will-change: transform;
+    z-index: -5;
     position: fixed;
     top: 0;
     left: 0;

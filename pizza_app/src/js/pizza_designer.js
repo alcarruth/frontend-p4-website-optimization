@@ -1,50 +1,67 @@
+//--------------------------------------------------------------------------------------
+// PizzaDesigner() returns a function wrapped in a closure with its 
+// supporting definitions.  Calling the returned function
+// generates a "semantic pizza".
+//
+// What? Never had a semantic pizza?  Never even _heard_ of it?  Well
+// you're in for a treat!  You've heard of gluten free, lactose free,
+// vegan, paleo ...  Well semantic pizzas are DOM free.  
+//
+// And they're not only delicious, they are good for you.  That's right,
+// no hard to digest elements, tags, selectors and such to clog the ol'
+// pipeline, just pure delicious JavaScript strings, arrays, and
+// objects, suitable for use either client side or server side.  So,
+// dine in, or take'n'bake, it' up to you!
+//
 
 PizzaDesigner = function() {
 
 	 // pizza ingredients
 
-	 var ingredients = {
+	 var meats = [
+		  "Pepperoni", "Sausage", "Fennel Sausage", "Spicy Sausage", 
+		  "Chicken", "BBQ Chicken", "Chorizo", "Chicken Andouille",
+		  "Salami", "Tofu", "Bacon", "Canadian Bacon", "Proscuitto",
+		  "Italian Sausage", "Ground Beef", "Anchovies", "Turkey", 
+		  "Ham", "Venison", "Lamb", "Duck", "Soylent Green", "Carne Asada",
+		  "Soppressata Picante", "Coppa", "Pancetta", "Bresola", "Lox",
+		  "Guanciale", "Chili", "Beef Jerky", "Pastrami", "Kielbasa", 
+		  "Scallops", "Filet Mignon"
+    ];
 
-		  meats: [
-				"Pepperoni", "Sausage", "Fennel Sausage", "Spicy Sausage", 
-				"Chicken", "BBQ Chicken", "Chorizo", "Chicken Andouille",
-				"Salami", "Tofu", "Bacon", "Canadian Bacon", "Proscuitto",
-				"Italian Sausage", "Ground Beef", "Anchovies", "Turkey", 
-				"Ham", "Venison", "Lamb", "Duck", "Soylent Green", "Carne Asada",
-				"Soppressata Picante", "Coppa", "Pancetta", "Bresola", "Lox",
-				"Guanciale", "Chili", "Beef Jerky", "Pastrami", "Kielbasa", 
-				"Scallops", "Filet Mignon" ],
+	 var nonMeats = [
+		  "White Onions", "Red Onions", "Sauteed Onions", 
+		  "Green Peppers", "Red Peppers", "Banana Peppers",
+		  "Ghost Peppers", "Habanero Peppers", "Jalapeno Peppers",
+		  "Stuffed Peppers", "Spinach", "Tomatoes", "Pineapple",
+		  "Pear Slices", "Apple Slices", "Mushrooms", "Arugula",
+		  "Basil", "Fennel", "Rosemary", "Cilantro", "Avocado", 
+		  "Guacamole", "Salsa", "Swiss Chard", "Kale", 
+		  "Sun Dried Tomatoes", "Walnuts", "Artichoke", "Asparagus",
+		  "Caramelized Onions", "Mango", "Garlic", "Olives",
+		  "Cauliflower", "Polenta", "Fried Egg", "Zucchini", "Hummus"
+    ];
 
-		  nonMeats: [
-				"White Onions", "Red Onions", "Sauteed Onions", 
-				"Green Peppers", "Red Peppers", "Banana Peppers",
-				"Ghost Peppers", "Habanero Peppers", "Jalapeno Peppers",
-				"Stuffed Peppers", "Spinach", "Tomatoes", "Pineapple",
-				"Pear Slices", "Apple Slices", "Mushrooms", "Arugula",
-				"Basil", "Fennel", "Rosemary", "Cilantro", "Avocado", 
-				"Guacamole", "Salsa", "Swiss Chard", "Kale", 
-				"Sun Dried Tomatoes", "Walnuts", "Artichoke", "Asparagus",
-				"Caramelized Onions", "Mango", "Garlic", "Olives",
-				"Cauliflower", "Polenta", "Fried Egg", "Zucchini", "Hummus" ],
-
-		  cheeses: [ 
-				"American Cheese", "Swiss Cheese", "Goat Cheese",
-				"Mozzarella Cheese", "Parmesean Cheese", "Velveeta Cheese",
-				"Gouda Cheese", "Muenster Cheese", "Applewood Cheese", 
-				"Asiago Cheese", "Bleu Cheese", "Boursin Cheese",
-				"Brie Cheese", "Cheddar Cheese", "Chevre Cheese",
-				"Havarti Cheese", "Jack Cheese", "Pepper Jack Cheese",
-				"Gruyere Cheese", "Limberger Cheese", "Manchego Cheese",
-				"Marscapone Cheese", "Pecorino Cheese", "Provolone Cheese",
-				"Queso Cheese", "Roquefort Cheese", "Romano Cheese",
-				"Ricotta Cheese", "Smoked Gouda" ],
-
-		  sauces: [
-				"Red Sauce", "Marinara", "BBQ Sauce", "No Sauce", "Hot Sauce" ],
-
-		  crusts: [
-				"White Crust", "Whole Wheat Crust", "Flatbread Crust", "Stuffed Crust" ],
-	 }
+	 var cheeses = [ 
+		  "American Cheese", "Swiss Cheese", "Goat Cheese",
+		  "Mozzarella Cheese", "Parmesean Cheese", "Velveeta Cheese",
+		  "Gouda Cheese", "Muenster Cheese", "Applewood Cheese", 
+		  "Asiago Cheese", "Bleu Cheese", "Boursin Cheese",
+		  "Brie Cheese", "Cheddar Cheese", "Chevre Cheese",
+		  "Havarti Cheese", "Jack Cheese", "Pepper Jack Cheese",
+		  "Gruyere Cheese", "Limberger Cheese", "Manchego Cheese",
+		  "Marscapone Cheese", "Pecorino Cheese", "Provolone Cheese",
+		  "Queso Cheese", "Roquefort Cheese", "Romano Cheese",
+		  "Ricotta Cheese", "Smoked Gouda"
+    ];
+    
+	 var sauces = [
+		  "Red Sauce", "Marinara", "BBQ Sauce", "No Sauce", "Hot Sauce"
+    ];
+    
+	 var crusts = [
+		  "White Crust", "Whole Wheat Crust", "Flatbread Crust", "Stuffed Crust"
+    ];
 
 	 // object containing lists of adjectives by category
 
@@ -270,10 +287,8 @@ PizzaDesigner = function() {
 
 	 }  // End Of Nouns
 
-
 	 //--------------------------------------------------------
-	 // Concatenates An Object'S Values
-	 // And Throws Away The Keys
+	 // Returns a list of the objects values.
 	 //
 	 function flatten(obj) {
 		  var xs = [];
@@ -293,39 +308,22 @@ PizzaDesigner = function() {
 	 }
 
 	 //--------------------------------------------------------
-	 // random selection of multiple items from list
-	 // (with replacement)
-	 //
-	 // arg nums is a list of the allowable number of items
-	 // to choose.
+	 // Randomly select multiple items from list.
+	 // Arg nums is a list of the allowable number of items
+	 // to choose.  See how it's used in randomIngredients()
 	 //
 	 function chooseSome(list, nums) {
 		  var chosen = [];
-		  for (var i=0; i<chooseOne(nums); i++) {
+        var numChoices = chooseOne(nums);
+		  for (var i = 0; i < numChoices; i++) {
 				chosen.push(chooseOne(list));
 		  }
 		  return chosen;
 	 }
 
 	 //--------------------------------------------------------
-	 // Capitalize word
-	 // this is no longer used here because I pre-capitalized 
-	 // the lists.
-	 //
-	 function capitalize(word) {
-		  var initial = word.charAt(0).toUpperCase();
-		  var rest = word.slice(1).toLowerCase();
-		  return initial + rest;
-	 }
-
-	 var meats = ingredients.meats;
-	 var nonMeats = ingredients.nonMeats;
-	 var cheeses = ingredients.cheeses;
-	 var sauces = ingredients.sauces;
-	 var crusts = ingredients.crusts;
-	 var adjectives = flatten(adjectives);
-	 var nouns = flatten(nouns);
-
+    // Randomly generate a list of ingredients
+    //
 	 function randomIngredients() {
 		  var ingredients = {
 				meats: chooseSome(meats, [0,1,2,3]),
@@ -337,26 +335,18 @@ PizzaDesigner = function() {
 		  return ingredients;
 	 }
 
+	 //--------------------------------------------------------
+    // Randomly generate a name for the pizza
+    //
 	 function randomPizzaName() {
 		  var noun = chooseOne(nouns);
 		  var adjective = chooseOne(adjectives);
 		  return 'The ' + adjective + ' ' + noun;
 	 }
 
-	 /*
-		Semantic Pizza
-		---------------
-		What? Never had a semantic pizza?  Never even _heard_ of it?  Well
-		you're in for a treat!  You've heard of gluten free, lactose free,
-		vegan, paleo ...  Well semantic pizzas are DOM free.  
-
-		And they're not only delicious, they are good for you.  That's right,
-		no hard to digest elements, tags, selectors and such to clog the ol'
-		pipeline, just pure delicious JavaScript strings, arrays, and
-		objects, suitable for use either client side or server side.  So,
-		dine in, or take'n'bake, it' up to you!
-	 */
-
+	 //--------------------------------------------------------
+    // Randomly generate a "semantic" pizza
+    //
 	 function randomPizza(id) {
 		  return {
 				id: id,
@@ -367,4 +357,8 @@ PizzaDesigner = function() {
 	 }
 
 	 return randomPizza;
-}
+
+} // end PizzaDesigner.
+
+
+

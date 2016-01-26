@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------------------------
 // SlidingPizza() constructs a sliding pizza object.
 //
-function SlidingPizza(bg, imgSrc, row, col, sx, sy) {
+function SlidingPizza(bg, imgSrc, i, row, col, sx, sy) {
 
     var className = 'sliding-pizza';
     var x = col * sx;
@@ -13,6 +13,7 @@ function SlidingPizza(bg, imgSrc, row, col, sx, sy) {
     img.src = imgSrc;
     img.style.left = x + 'px';
     img.style.top = y + 'px';
+    img.style['z-index'] = - (i+1) % 5;
     bg.appendChild(img);
 
     function updatePosition(dx, dy) {
@@ -42,7 +43,7 @@ function SlidingPizzasBackground(rows, cols) {
     var sx = 256;     // spacing
     var sy = 256;
     var frame = 0;    // frame count
-	 
+  
     //-----------------------------------------------------------------------
 	 // method generateSlidingPizzas() 
     //
@@ -55,16 +56,25 @@ function SlidingPizzasBackground(rows, cols) {
         // making the pizza images opaque means that they have to 
         // match the page's background color.
 
-        var imgSrc = "images/pizza-blk-bg-sm.jpg";
+        var imgSrc = "images/pizza-blk-bg-sm.jpg"
 
-		  bg = document.querySelector("#sliding-pizzas")
+        bg = [
+		      document.querySelector("#sliding-pizzas-1"),
+		      document.querySelector("#sliding-pizzas-2"),
+		      document.querySelector("#sliding-pizzas-3"),
+		      document.querySelector("#sliding-pizzas-4"),
+		      document.querySelector("#sliding-pizzas-5")
+        ];
 
+        var i = 0;
         for (var row = 0; row < rows; row++) {
             for (var col = 0; col < cols; col++) {
-                pizza = SlidingPizza(bg, imgSrc, row, col, sx, sy);
+                pizza = SlidingPizza(bg[(i+1)%5], imgSrc, i, row, col, sx, sy);
                 pizzas.push(pizza);
+                i++;
             }
         }
+
         updatePositions();
     }
 
@@ -87,12 +97,10 @@ function SlidingPizzasBackground(rows, cols) {
 		  var i, j, phase;
 		  var top = document.body.scrollTop;
 		  frame++;
-        
+
 		  for (i = 0; i < 5; i++) {
 				phase = Math.sin((top / 1250) + i);
-				for (j = i; j < pizzas.length; j += 5) {
-					 pizzas[j].updatePosition(100 * phase, 0);
-				}
+            bg[i].style.transform = 'translateX(' + 100 * phase + 'px)';
 		  }
     }
 
@@ -106,7 +114,7 @@ function SlidingPizzasBackground(rows, cols) {
     // so much output that the animation log got lost in the shuffle.
     // So I changed the sample size to reduce the amount logged.
     //
-	 function logUpdateTimes(times) {
+    function logUpdateTimes(times) {
 		  var sampleSize = 100;
 		  var sum = 0;
 		  var msg = "Average time to generate last " + sampleSize + " frames: "
@@ -120,9 +128,9 @@ function SlidingPizzasBackground(rows, cols) {
 
     //-----------------------------------------------------------------------
 	 // method init()
-    //
 	 function init() {
-        // wrap updatePositions() with the timer (see timer.js)
+        // wrap updatePositions() with the timer.
+        // timerWrap() is defined in timer.js
 		  updatePositions = timerWrap('update', updatePositions, logUpdateTimes);
         window.addEventListener('scroll', animationLoop(updatePositions, 300));
 		  generateSlidingPizzas();	
