@@ -15,7 +15,7 @@ echo "removing IMG files"
 rm ${DST}/${IMG}/* 2> /dev/null
 
 echo "removing index.html"
-rm index.html 2> /dev/null
+rm ${DST}index.html 2> /dev/null
 
 
 
