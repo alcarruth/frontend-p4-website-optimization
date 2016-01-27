@@ -18,4 +18,4 @@ echo "cleaning PROJECTS directory"
 rm ${DST}/${PROJECTS}/* 2> /dev/null
 
 echo "removing index.html"
-rm index.html 2> /dev/null
+rm ${DST}/index.html 2> /dev/null

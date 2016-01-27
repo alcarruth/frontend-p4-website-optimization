@@ -45,7 +45,7 @@ function animationLoop(foo, dt) {
         // set when looper() is started by eventListener() and cleared
         // when looper() exits.
         // 
-        // Now, when and event is received, eventListener() checks this 
+        // Now, when an event is received, eventListener() checks this 
         // new flag and does not start another looper() if one is currently
         // running.
 

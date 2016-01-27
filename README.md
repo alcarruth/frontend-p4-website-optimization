@@ -32,6 +32,22 @@ $ google-chrome mobile-portfoliio/dist/index.html
 
 ### Optimizations
 
+styles:
+webfonts - Open_Sans downloaded and inlined
+style.css - minified and inlined
+print.css - minified and inlined
+      
+scripts:
+google_analitics_profile_js: minified and inlined
+google_analytics_js: async
+perfmatters_js:  minified and inlined
+
+images:
+profilepic: compressed
+mobilewebdev_jpg: compressed
+cam_be_like_jpg: compressed
+
+
 #### PageSpeed Insights
 
 #### Resize Pizzas

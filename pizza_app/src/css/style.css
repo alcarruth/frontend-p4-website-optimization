@@ -52,7 +52,6 @@ body {
 }
 
 #sliding-pizzas {
-    will-change: transform;
     z-index: -1;
     position: fixed;
     top: 0;
@@ -60,8 +59,9 @@ body {
 }
 
 .sliding-pizza {
+    will-change: transform;
     position: fixed;
-    z-index: inherit;
+    z-index: -1;
 }
 
 h2 {

@@ -55,7 +55,7 @@ class Include_CSS
 class Include_JS
 
     ref_template = '<script {{flags}} src="{{js_url}}"></script>'
-    inline_template = '<script>\n{{js}}\n</script></script>'
+    inline_template = '<script>\n{{js}}\n</script>'
     
     constructor: (@base, @min='-min', @dir='js/', @suffix='.js') ->
         @inline=false
