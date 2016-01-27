@@ -27,7 +27,7 @@ function SlidingPizza(bg, imgSrc, row, col, sx, sy) {
         row: row,
         col: col,
         updatePosition: updatePosition
-    }
+    };
 
 } // end SlidingPizza.
 
@@ -56,8 +56,8 @@ function SlidingPizzasBackground(rows, cols) {
         // match the page's background color.
 
         var imgSrc = "images/pizza-blk-bg-sm.jpg";
-
-		  bg = document.querySelector("#sliding-pizzas")
+        var pizza;
+		  bg = document.querySelector("#sliding-pizzas");
 
         for (var row = 0; row < rows; row++) {
             for (var col = 0; col < cols; col++) {
@@ -71,7 +71,7 @@ function SlidingPizzasBackground(rows, cols) {
     //-----------------------------------------------------------------------
 	 // method updatePositions()
     //
-    function updatePositions() {
+    var updatePositions = function() {
 
         // Here I've pulled the trigonometry out of the inner loop 
         // since there are only 5 phases.  We compute the phase once
@@ -94,7 +94,7 @@ function SlidingPizzasBackground(rows, cols) {
 					 pizzas[j].updatePosition(100 * phase, 0);
 				}
 		  }
-    }
+    };
 
     //-----------------------------------------------------------------------
     // logUpdateTimes(): log the average time it took for the past
@@ -109,13 +109,14 @@ function SlidingPizzasBackground(rows, cols) {
 	 function logUpdateTimes(times) {
 		  var sampleSize = 100;
 		  var sum = 0;
-		  var msg = "Average time to generate last " + sampleSize + " frames: "
-        if (times.length % sampleSize == 0) {
+		  var msg = "Average time to generate last " + sampleSize + " frames: ";
+
+        if (times.length % sampleSize === 0) {
 		      for (var i = times.length-sampleSize; i < times.length; i++) {
 				    sum = sum + times[i].duration;
 		      }
 		      console.log(msg + sum / sampleSize + "ms");
-        };
+        }
 	 }
 
     //-----------------------------------------------------------------------
@@ -140,7 +141,7 @@ function SlidingPizzasBackground(rows, cols) {
 		  updatePositions: updatePositions,
 		  generateSlidingPizzas: generateSlidingPizzas,
         init: init
-    }
+    };
 
 } // end SlidingPizzas.
 

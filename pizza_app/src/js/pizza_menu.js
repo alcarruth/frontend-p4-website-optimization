@@ -40,7 +40,7 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 
     // function logResize() is passed timer during init()
     function logResize(times) {
-		  console.log("Time to resize pizzas: " + times[times.length-1].duration + "ms")
+		  console.log("Time to resize pizzas: " + times[times.length-1].duration + "ms");
     }
 
     //---------------------------------------------------------------------------------
@@ -51,9 +51,10 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
     //
 	 function generatePizzas() {
 		  var pizza;
+        var i;
 
         // create the "semantic" pizzas (see pizza_designer.js)
-		  for (var i=0; i < pizzaMenuSize; i++) {
+		  for (i=0; i < pizzaMenuSize; i++) {
 				pizza = pizzaDesigner('pizza_' + i);
 				pizzas.push(pizza);
 		  }
@@ -61,7 +62,7 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
         // the pizzas on the menu.
 		  pizzaMenuTemplate = document.getElementById('pizza-menu-template').innerHTML;
 		  pizzaMenu.innerHTML = Mustache.render(pizzaMenuTemplate, {pizzas: pizzas});
-		  for (i in pizzas) {
+		  for (i = 0; i < pizzas.length; i++) {
 				pizza = pizzas[i];
 				pizza.element = document.getElementById(pizza.id);
 		  }
@@ -91,7 +92,7 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 	 return {
 		  init: init,
 		  pizzas: pizzas,
-    }
+    };
 
 } // end PizzaMenu: class constructor
 

@@ -30,7 +30,7 @@ function timerWrap(uniqueID, func, cb) {
 		  times = window.performance.getEntriesByName(measure);
         
 		  return cb(times);
-	 }
+	 };
 }
 
 

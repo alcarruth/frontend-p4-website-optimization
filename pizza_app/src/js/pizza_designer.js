@@ -14,7 +14,7 @@
 // dine in, or take'n'bake, it' up to you!
 //
 
-PizzaDesigner = function() {
+function PizzaDesigner() {
 
 	 // pizza ingredients
 
@@ -166,7 +166,7 @@ PizzaDesigner = function() {
 				"Theoretical", "Atomic", "Electronic", "Gaseous",
 				"Investigative", "Solar", "Extinct", "Galactic"],
 
-	 }  // end of adjectives
+	 };  // end of adjectives
 
 
 	 // object containing lists of nouns by category
@@ -285,19 +285,22 @@ PizzaDesigner = function() {
 				"Gravity", "Darkmatter", "Constellation", "Circuit",
 				"Asteroid"],
 
-	 }  // End Of Nouns
+	 };  // End Of Nouns
 
 	 //--------------------------------------------------------
 	 // Returns a list of the objects values.
 	 //
 	 function flatten(obj) {
 		  var xs = [];
-		  var key;
-		  for (key in obj) {
-				xs = xs.concat(obj[key]);
+        var keys = Object.keys(obj);
+        for (var i = 0; i < keys.length; i++) {
+            xs = xs.concat(obj[keys[i]]);
 		  }
 		  return xs;
 	 }
+
+    nouns = flatten(nouns);
+    adjectives = flatten(adjectives);
 
 	 //--------------------------------------------------------
 	 // random selection from list

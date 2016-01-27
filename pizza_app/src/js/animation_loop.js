@@ -56,12 +56,12 @@ function animationLoop(foo, dt) {
         else {
             looperRunning = false;
         }
-    };
+    }
 
     function timeoutHandler() {
         console.log('eventCount: ' + eventCount);
         condition = false;
-    };
+    }
 
     function eventListener() {
 
@@ -71,7 +71,8 @@ function animationLoop(foo, dt) {
 
         if (!condition) {
             condition = true;
-            console.log('conditionCount: ' + ++conditionCount);
+            conditionCount++;
+            console.log('conditionCount: ' + conditionCount);
 
             // see BUG Fixed. above
             if (!looperRunning) {
@@ -79,7 +80,7 @@ function animationLoop(foo, dt) {
                 requestAnimationFrame(looper);
             }
         }
-    };
+    }
 
     return eventListener;
 }

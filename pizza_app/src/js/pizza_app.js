@@ -29,4 +29,4 @@ function PizzaApp() {
 window.onload = function() {
 	 window.pizzaApp = PizzaApp();
 	 window.pizzaApp.init();
-}
+};
