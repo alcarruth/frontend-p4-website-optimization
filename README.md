@@ -1,12 +1,29 @@
 ## Udacity FEND Project 4 Website Performance Optimization
 
-### Dependencies
+### Pre-requisites
+
+This project has been developed in a Linux environment and requires
+the following programs to build from scratch:
 
  - bash
+ - node.js
+ - coffeescript
  - yui-compressor
  - imageMagick
 
-### Quick Start
+Assuming that you have bash and node already, you can install the others as 
+follows:
+
+```
+$ sudo apt-get install yui-compressor
+$ sudo apt-get install imageMagick
+$ npm install -g coffee-script
+```
+
+### Downloading, Building and Viewing
+
+If you've got the pre-requisites taken care of, you can download, build
+and view the website as follows:
 
 ```
 $ git clone https://github.com/alcarruth/frontend-p4-website-optimization.git
