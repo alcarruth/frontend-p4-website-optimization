@@ -29,7 +29,8 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
     // The timing code has been extracted and generalized in timer.js
     // And the logging code has been put in a separate function (below)
     //
-	 function resizePizzas(size) { 
+	 function resizePizzas() { 
+        var size = sizeSlider.value;
 		  var text = { 1: "Small", 2: "Medium", 3: "Large" }[size];
 		  var width = { 1: '25%', 2: '33%', 3: '50%' }[size];
 		  pizzaSize.innerHTML = text;
@@ -83,7 +84,7 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 		  pizzaMenu = document.getElementById("pizza-menu");
 
         // hook resizePizzas() to the slider
-		  sizeSlider.onchange = timerWrap("resize", resizePizzas, logResize);
+        sizeSlider.onchange = timerWrap("resize", resizePizzas, logResize);
 
         // run generatePizzas()
         timerWrap('generate', generatePizzas, logGenerate)();

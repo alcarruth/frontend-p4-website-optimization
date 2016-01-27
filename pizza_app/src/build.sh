@@ -44,6 +44,7 @@ chmod 664 ${DST}/${CSS}/*
 
 echo "compressing style.css to style-min.css"
 yui-compressor ${DST}/${CSS}/style.css > ${DST}/${CSS}/style-min.css;
+cp ${DST}/${CSS}/style-min.css ${SRC}/${CSS}/style-min.css;
 
 echo "copying image files"
 cp $SRC/${IMG}/pizza.png ${DST}/${IMG}

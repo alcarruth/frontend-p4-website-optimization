@@ -11,18 +11,16 @@ the following programs to build from scratch:
  - yui-compressor
  - imageMagick
 
-Assuming that you have bash and node already, you can install the others as 
-follows:
+Assuming that you have bash and node already, the others are easily 
+installed.
 
 ```
 $ sudo apt-get install yui-compressor
 $ sudo apt-get install imageMagick
-$ npm install -g coffee-script
+$ sudo npm install -g coffee-script
 ```
 
-### Downloading, Building and Viewing
-
-If you've got the pre-requisites taken care of, you can download, build
+Now you can download, build
 and view the website as follows:
 
 ```
@@ -36,7 +34,11 @@ $ google-chrome mobile-portfoliio/dist/index.html
 
 #### PageSpeed Insights
 
-#### Frames Per Second in Pizza App
+#### Resize Pizzas
+
+#### Load Time
+
+#### Update Positions
 
 ### Refactoring
 

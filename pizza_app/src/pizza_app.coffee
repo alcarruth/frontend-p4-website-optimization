@@ -214,19 +214,19 @@ includes_dist =
     main_js: new Include_JS('main', min='-min')
 
 options_dist =
-    style_css: { minified: false }
-    pizza_png: { minified: false }
+    style_css: { minified: false, inline: false }
+    pizza_png: { minified: true }
     pizzeria_jpg: { minified: true }
     mustache_js: { minified: true }
     main_js: { minified: false }
 
 pages = 
-    index_develop: new Page(includes_develop, options_develop, 'index')
-    #index_dist: new Page(includes_dist, options_dist, 'index') 
+    #index_develop: new Page(includes_develop, options_develop, 'index')
+    index_dist: new Page(includes_dist, options_dist, 'index') 
 
 build = ->        
-    fs.writeFileSync(build_dst + 'index.html', pages.index_develop.render())
-    #fs.writeFileSync(build_dst + 'index.html', pages.index_dist.render())
+    #fs.writeFileSync(build_dst + 'index.html', pages.index_develop.render())
+    fs.writeFileSync(build_dst + 'index.html', pages.index_dist.render())
 
 build()
 
