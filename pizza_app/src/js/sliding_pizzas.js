@@ -42,9 +42,9 @@ function SlidingPizzasBackground(rows, cols) {
     var sx = 256;     // spacing
     var sy = 256;
     var frame = 0;    // frame count
-	 
+	
     //-----------------------------------------------------------------------
-	 // method generateSlidingPizzas() 
+	// method generateSlidingPizzas() 
     //
     function generateSlidingPizzas() {
 
@@ -58,7 +58,7 @@ function SlidingPizzasBackground(rows, cols) {
         var imgSrc = "images/sliding_pizza.png";
 
         var pizza;
-		  bg = document.querySelector("#sliding-pizzas");
+		bg = document.querySelector("#sliding-pizzas");
 
         for (var row = 0; row < rows; row++) {
             for (var col = 0; col < cols; col++) {
@@ -70,7 +70,7 @@ function SlidingPizzasBackground(rows, cols) {
     }
 
     //-----------------------------------------------------------------------
-	 // method updatePositions()
+	// method updatePositions()
     //
     var updatePositions = function() {
 
@@ -85,16 +85,16 @@ function SlidingPizzasBackground(rows, cols) {
         // I bet any number that is relatively prime to the 
         // number of columns would have the crazy look to it.
 
-		  var i, j, phase;
-		  var top = document.body.scrollTop;
-		  frame++;
+		var i, j, phase;
+		var top = document.body.scrollTop;
+		frame++;
         
-		  for (i = 0; i < 5; i++) {
-				phase = Math.sin((top / 1250) + i);
-				for (j = i; j < pizzas.length; j += 5) {
-					 pizzas[j].updatePosition(100 * phase, 0);
-				}
-		  }
+		for (i = 0; i < 5; i++) {
+			phase = Math.sin((top / 1250) + i);
+			for (j = i; j < pizzas.length; j += 5) {
+				pizzas[j].updatePosition(100 * phase, 0);
+			}
+		}
     };
 
     //-----------------------------------------------------------------------
@@ -107,28 +107,28 @@ function SlidingPizzasBackground(rows, cols) {
     // so much output that the animation log got lost in the shuffle.
     // So I changed the sample size to reduce the amount logged.
     //
-	 function logUpdateTimes(times) {
-		  var sampleSize = 100;
-		  var sum = 0;
-		  var msg = "Average time to generate last " + sampleSize + " frames: ";
+	function logUpdateTimes(times) {
+		var sampleSize = 100;
+		var sum = 0;
+		var msg = "Average time to generate last " + sampleSize + " frames: ";
 
         if (times.length % sampleSize === 0) {
-		      for (var i = times.length-sampleSize; i < times.length; i++) {
-				    sum = sum + times[i].duration;
-		      }
-		      console.log(msg + sum / sampleSize + "ms");
+		    for (var i = times.length-sampleSize; i < times.length; i++) {
+				sum = sum + times[i].duration;
+		    }
+		    console.log(msg + sum / sampleSize + "ms");
         }
-	 }
+	}
 
     //-----------------------------------------------------------------------
-	 // method init()
+	// method init()
     //
-	 function init() {
+	function init() {
         // wrap updatePositions() with the timer (see timer.js)
-		  updatePositions = timerWrap('update', updatePositions, logUpdateTimes);
-        window.addEventListener('scroll', animationLoop(updatePositions, 300));
-		  generateSlidingPizzas();	
-	 }
+		updatePositions = timerWrap('update', updatePositions, logUpdateTimes);
+        window.addEventListener('scroll', animationLoop(updatePositions, 500));
+		generateSlidingPizzas();	
+	}
 
     // How many of these are used externally?  Only init() I think.
     // The others may be handy for browsing in DevTools.
@@ -139,8 +139,8 @@ function SlidingPizzasBackground(rows, cols) {
         sy: sy,
         pizzas: pizzas,
         bg: bg,
-		  updatePositions: updatePositions,
-		  generateSlidingPizzas: generateSlidingPizzas,
+		updatePositions: updatePositions,
+		generateSlidingPizzas: generateSlidingPizzas,
         init: init
     };
 
