@@ -32,9 +32,6 @@ gulp.task('scripts', ['clean'], function() {
 
 gulp.task('styles', ['clean'], function() {
 	 return gulp.src('src/css/*.css')
-		      .pipe(compress({
-				    type: 'css'
-		      }))
 		      .pipe(gulp.dest('dist/css/'));
 });
 

@@ -33,7 +33,12 @@ gulp.task('styles', ['clean'], function() {
 gulp.task('images', ['clean'], function() {
     return gulp.src('src/img/*')
             .pipe(gm(function(gmfile){
-                return gmfile.quality('20%')
+                return gmfile
+                        .resize(100)
+                        .strip()
+                        .interlace('Plane')
+//                        .gaussian(0.05)
+                        .quality('80%');
             }))
             .pipe(gulp.dest('dist/img/'));
 });
