@@ -1,0 +1,24 @@
+                <!-- template used by PizzaMenu and mustache -->
+		          <script id="pizza-menu-template" type="text/html">
+		              {{#pizzas}}
+		              <div id="{{id}}" class="menu-item">
+			               <img class="menu-item-image"	src="{{imgURL}}">
+			               <div class="menu-item-description">
+				                <h4> {{ name }} </h4>
+				                <ul class="ingredients-list">
+				                    {{ #ingredients.meats }} 
+				                    <li> {{.}} </li>
+				                    {{/ingredients.meats}}
+				                    {{#ingredients.nonMeats}} 
+				                    <li> {{.}} </li>
+				                    {{/ingredients.nonMeats}}
+				                    {{#ingredients.cheeses}} 
+				                    <li> {{.}} </li>
+				                    {{/ingredients.cheeses}} 
+				                    <li> {{ingredients.crust}} </li>
+				                    <li> {{ingredients.sauce}} </li>
+				                </ul>
+			               </div>
+		              </div>
+		              {{/pizzas}}
+		          </script>

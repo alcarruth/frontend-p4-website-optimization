@@ -347,6 +347,34 @@ function PizzaDesigner() {
 		  return 'The ' + adjective + ' ' + noun;
 	 }
 
+    // Pre-defined pizzas
+    var specialPizzas = [
+        {
+	         id: "pizza_0",
+	         name: "The Udacity Special",
+	         ingredients: {
+		          meats: [ "Turkey", "Tofu" ],
+		          nonMeats: [ "Cauliflower", "Sun Dried Tomatoes" ],
+		          cheeses: ["Velveeta Cheese" ],
+		          sauce: "Red Sauce",
+		          crust: "Whole Wheat Crust"
+            },
+	         imgURL: 'images/menu_pizza.png'
+        },
+        {
+	         id: "pizza_1",
+	         name: "The Cameron Special",
+	         ingredients: { 
+                meats: [ "Chicken" ],
+                nonMeats: [ "Hot Sauce" ] ,
+                cheeses: [],
+                sauce: "No Sauce",
+                crust: "White Crust"
+            },
+	         imgURL: 'images/menu_pizza.png'
+       }
+    ];
+
 	 //--------------------------------------------------------
     // Randomly generate a "semantic" pizza
     //
@@ -355,11 +383,14 @@ function PizzaDesigner() {
 				id: id,
 				name: randomPizzaName(),
 				ingredients: randomIngredients(),
-				imgURL: 'images/pizza.png'
+				imgURL: 'images/menu_pizza.png'
 		  };
 	 }
 
-	 return randomPizza;
+	 return {
+        randomPizza: randomPizza,
+        specialPizzas: specialPizzas
+    };
 
 } // end PizzaDesigner.
 

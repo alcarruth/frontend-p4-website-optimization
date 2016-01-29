@@ -7,7 +7,7 @@
         <meta name="description" content="Pizza Restaurant">
         <meta name="author" content="Al Carruth">
         <title> Pizza </title>
-        {{style_css}}
+        {{{style_css}}}
     </head>
 
     <body>
@@ -26,7 +26,7 @@
 
 
 	         <div id="call-to-action">
-                <img id="pizzeria-image" src="images/pizzeria_md.jpg" alt="pizzeria image">
+                <img id="pizzeria-image" src="images/pizzeria.jpg" alt="pizzeria image">
 		          <div class="row">
 		              <h2>We Have Hundreds of Pizza Recipes! </h2> 
 		              <p> 
@@ -92,38 +92,15 @@
 	         </div>
 
 	         <div id="pizza-menu">
-                <!-- template used by PizzaMenu and mustache -->
-		          <script id="pizza-menu-template" type="text/html">
-		              {{#pizzas}}
-		              <div id="{{id}}" class="menu-item">
-			               <img class="menu-item-image"	src="{{imgURL}}">
-			               <div class="menu-item-description">
-				                <h4> {{ name }} </h4>
-				                <ul class="ingredients-list">
-				                    {{ #ingredients.meats }} 
-				                    <li> {{.}} </li>
-				                    {{/ingredients.meats}}
-				                    {{#ingredients.nonMeats}} 
-				                    <li> {{.}} </li>
-				                    {{/ingredients.nonMeats}}
-				                    {{#ingredients.cheeses}} 
-				                    <li> {{.}} </li>
-				                    {{/ingredients.cheeses}} 
-				                    <li> {{ingredients.crust}} </li>
-				                    <li> {{ingredients.sauce}} </li>
-				                </ul>
-			               </div>
-		              </div>
-		              {{/pizzas}}
-		          </script>
+                {{{pizza_template}}}
 	         </div>
 
 	         <div id="footer">Thanks for visiting! &copy; 2014 Udacity </div>
 
         </div> <!-- end div#main -->
-
-        {{mustache_js}}
-        {{main_js}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+        {{{mustache_js}}}
+        {{{main_js}}}
 
     </body>
 

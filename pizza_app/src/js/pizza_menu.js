@@ -39,7 +39,7 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 		  }
     }
 
-    // function logResize() is passed timer during init()
+    // function logResize() is passed to timer during init()
     function logResize(times) {
 		  console.log("Time to resize pizzas: " + times[times.length-1].duration + "ms");
     }
@@ -54,9 +54,12 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 		  var pizza;
         var i;
 
+        pizzas = pizzaDesigner.specialPizzas;
+
         // create the "semantic" pizzas (see pizza_designer.js)
-		  for (i=0; i < pizzaMenuSize; i++) {
-				pizza = pizzaDesigner('pizza_' + i);
+        // i starts at end of the list so far.
+		  for (i = pizzas.length; i < pizzaMenuSize; i++) {
+				pizza = pizzaDesigner.randomPizza('pizza_' + i);
 				pizzas.push(pizza);
 		  }
         // get the template from the document and render the html views for
@@ -69,7 +72,7 @@ function PizzaMenu( pizzaDesigner, pizzaMenuSize) {
 		  }
 	 }
 
-    // function logGenerate()  is passed timer during init()
+    // function logGenerate() is passed to timer during init()
     function logGenerate(times) {
 		  console.log("Time to generate pizzas on load: " + times[0].duration + "ms");
     }
