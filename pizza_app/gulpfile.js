@@ -17,18 +17,22 @@ gulp.task('clean', function() {
     return del.sync('dist/*');
 });
 
-gulp.task('scripts_min', ['clean'], function() {
-	 return gulp.src(['src/js/*.js', '!src/js/mustache.min.js'])
-            .pipe(concat('main.js'))
-		      .pipe(uglify())
-		      .pipe(gulp.dest('dist/js/'));
-});
+// JavaScript tasks
 
 gulp.task('scripts', ['clean'], function() {
 	 return gulp.src('src/js/*.js')
             .pipe(concat('main.js'))
 		      .pipe(gulp.dest('dist/js/'));
 });
+
+gulp.task('scripts_min', ['clean'], function() {
+	 return gulp.src('src/js/*.js')
+            .pipe(concat('main.js'))
+		      .pipe(uglify())
+		      .pipe(gulp.dest('dist/js/'));
+});
+
+// CSS tasks
 
 gulp.task('styles', ['clean'], function() {
 	 return gulp.src('src/css/*.css')
@@ -42,6 +46,8 @@ gulp.task('styles_min', ['clean'], function() {
 		      }))
 		      .pipe(gulp.dest('dist/css/'));
 });
+
+// image tasks
 
 gulp.task('images', ['clean'], function() {
 
@@ -74,7 +80,6 @@ gulp.task('images', ['clean'], function() {
                         .resize(100)
                         .strip()
                         .interlace('Plane')
-//                        .gaussian(0.05)
                         .quality('80%');
             }))
             .pipe(rename('pizzeria_sm.jpg'))
@@ -82,6 +87,8 @@ gulp.task('images', ['clean'], function() {
 
     return true;
 });
+
+// HTML tasks
 
 gulp.task('templates', ['styles', 'scripts'], function() {
     var pizza_template = fs.readFileSync("src/html/pizza_template.html", 'utf-8');
