@@ -33,16 +33,20 @@ $ ./build.sh
 ```
 ### Project Overview
 
-The project has been split into two:
+The original nanodegree project has been extensively refactored.
+First, the project has been split into two, **Pizza App** and **Mobile Portfolio**.
+Each of these has its own subdirectory containing `src` and `dist` subdirectories, and 
+a `gulpfile.js`.  Each project can be built separately by changing to its root directory
+and issuing the `gulp` command.
 
- - Pizza App
- - Mobile Portfolio
+However, the two projects share a single `node_modules` directory and `package.json` file
+in the root directory of this repository.
 
-Each of these has its own subdirectory containing `src`, `dist`, and `gulpfile.js`.
+### Mobile Portfolio
 
-### Optimizations
-
-#### Mobile Portfolio
+The mobile portfolio site was optimized and tested with 
+[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/).
+The following optimizations were made:
 
 Stylesheets:
  - webfonts - Open_Sans was downloaded and inlined
@@ -50,17 +54,38 @@ Stylesheets:
  - print.css - minified with gulp-cleancss and inlined
 
 Scripts:
- - google_analytics_js: `async` property added
- - perfmatters_js:  minified and inlined
- - google_analitics_profile_js: minified and inlined
+ - google_analytics.js: `async` property added
+ - perfmatters.js:  minified and inlined
+ - google_analitics_profile.js: minified and inlined
 
 images:
- - profilepic: compressed
- - mobilewebdev_jpg: compressed
- - cam_be_like_jpg: compressed
+ - profilepic.jpg: compressed
+ - mobilewebdev.jpg: compressed
+ - cam_be_like.jpg: compressed
 
-#### Pizza App
 
+### Pizza App
+
+The Pizza App site has been completely overhauled.  The main.js file was
+split into six files:
+
+ - animation_loop.js
+ - pizza_app.js
+ - pizza_designer.js
+ - pizza_menu.js
+ - sliding_pizzas.js
+ - timer.js
+
+Extensive documentation can be found in the comments in these files, but here
+is an overview.
+
+#### pizza_app.js
+pizza_app.js is the main entry point into the code. It defines, instantiates
+and initializes a PizzaApp object.
+
+```
+window.pizzaApp = PizzaApp();
+```
 
 Stylesheets:
  - webfonts - Open_Sans was downloaded and inlined
