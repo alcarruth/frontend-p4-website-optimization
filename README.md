@@ -4,14 +4,13 @@
 
 This project requires the following programs to build from scratch:
 
- - bash
  - node.js
  - [yui-compressor](http://yui.github.io/yuicompressor/)
  - [imageMagick](http://www.imagemagick.org/script/index.php)
  - [graphicsmagick](http://www.graphicsmagick.org/)
  - gulp
 
-Assuming that you have bash and node already, the others are easily 
+Assuming that you have node already, the others are easily 
 installed.
 
 On Linux, this can be done as follows:
