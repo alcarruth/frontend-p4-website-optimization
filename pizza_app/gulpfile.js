@@ -106,10 +106,10 @@ gulp.task('templates_min', ['styles_min', 'scripts_min'], function() {
     var pizza_template = fs.readFileSync("src/html/pizza_template.html", 'utf-8');
 	 gulp.src('src/html/index.html')
             .pipe(mustache({
-                style_css: '<link rel="stylesheet" href="css/style.css">',
+                style_css: '<style>'+ fs.readFileSync('dist/css/style.css') +'</style>',
                 pizza_template: pizza_template,
-                mustache_js: '<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>',
-                main_js: '<script src="js/main.js"></script>'
+                mustache_js: '<script async src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>',
+                main_js: '<script async src="js/main.js"></script>'
             }))
 		      .pipe(gulp.dest('dist/'));
 });
