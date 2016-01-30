@@ -87,43 +87,73 @@ and initializes a PizzaApp object.
 window.pizzaApp = PizzaApp();
 ```
 
-Stylesheets:
- - webfonts - Open_Sans was downloaded and inlined
- - style.css - minified with gulp-cleancss and inlined
- - print.css - minified with gulp-cleancss and inlined
+#### pizza_designer.js
 
-Scripts:
- - google_analytics_js: `async` property added
- - perfmatters_js:  minified and inlined
- - google_analitics_profile_js: minified and inlined
+pizza_designer.js contains the code for generating the pizzas for the menu.
+A big change is that it only generates what I'm calling _semantic pizzas_, that is
+JavaScript objects containing no HTML.  These are later combined with a _view_
+template to create the actual HTML for the page.
 
-images:
- - profilepic: compressed
- - mobilewebdev_jpg: compressed
- - cam_be_like_jpg: compressed
+So pizza_designer.js includes the lists of nouns, adjectives and
+ingredients from the original.  The random generator code had been
+cleaned up and modularized in an attempt to make it more cohesive,
+comprehensible and "easy on the eyes".  And the two default pizzas,
+_The Udacity Special_, and _The Cameron Special_, which were
+previously a part of index.html, are now semantic _secialty pizzas_ in
+the pizza designer.
 
+#### pizza_menu.js
+pizza_menu.js contains the code that generates the menu pizzas, using PizzaDesigner
+and Mustache to fill the menu items portion of the page.  It also contains
+the code to update the pizza sizes when the slider is changed.
 
+#### sliding_pizzas.js
+sliding_pizzas.js contains the code for the crazy sliding pizzas page background.
+It contains two class definitions, SlidingPizza, and SlidingPizzasBackground.
+Again, this code has been tidied up considerably, moving non central functionality
+like timing and animation to separate files.  This results in code that allows
+one to focus on the core functionality with minimal obfuscation.
 
+#### timer.js
+The timing code in the original is very cool as Cameron has testified, but 
+I felt like it cluttered things up considerably.  It was/is used in three places
+1. generating pizzas, 2. resizing pizzas and 3. scrolling updates, and each of 
+these had essentially the same timer code.  I tried to abstract the similar
+timing code and ended up with a function `timerWrap()` which could wrap
+another function and do the timing.  This generalization resulted in
+much cleaner code for the functions that were being timed.
 
-#### PageSpeed Insights
+#### animation_loop.js
+animation_loop.js is probably the most interesting of the bunch.  In trying
+to get my head around `requestAnimationFrame()` I realized that I had
+to use the tail-recursive calls as in all the examples, but I didn't want
+the loop to run forever, only when scrolling.  So I needed to be able
+to exit the loop when we were no longer scrolling and start it again
+when a `scroll` event happened.
 
-#### Resize Pizzas
+After wrestling with it _in situ_, I decided to pull it out into a separate
+function so that `updatePositions()` could focus on updating positions and
+not have to worry about the bigger picture.
 
-#### Load Time
+Eventually I realized that there was an inherent mis-match here between
+`scroll` _events_ and a scrolling _condition_, the former being ephemeral
+or instantaneous, and the latter having some longer duration.  I wanted
+the animation to start when a `scroll` event was received continue until
+we were no longer scrolling, which meant that we had not received a
+`scroll` event in some period of time.
 
-#### Update Positions
-
-### Refactoring
-
- - `timer.js`
- - `animation_loop.js`
- - `pizza_app.js`
- - `pizza_designer.js`
- - `pizza_menu.js`
- - `sliding_pizzas.js`
- - `sliding_pizzas_multi_layer.js`
+So, anyway, separating the animation management from the position
+updating allowed me to focus on one at a time, without being concerned
+with the other.  And it seems that the resulting code `animationLoop()`
+says something fundamental about the relationship between events
+and conditions that might be re-used elsewhere, certainly in animation
+but possibly beyond that.
 
 ### Status
+
+
+
+
 
 ### License
 
