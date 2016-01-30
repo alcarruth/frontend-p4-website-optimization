@@ -2,18 +2,19 @@
 
 ### Pre-requisites
 
-This project has been developed in a Linux environment and requires
-the following programs to build from scratch:
+This project requires the following programs to build from scratch:
 
  - bash
  - node.js
- - yui-compressor
- - imageMagick
- - graphicsmagick
+ - [yui-compressor](http://yui.github.io/yuicompressor/)
+ - [imageMagick](http://www.imagemagick.org/script/index.php)
+ - [graphicsmagick](http://www.graphicsmagick.org/)
  - gulp
 
 Assuming that you have bash and node already, the others are easily 
 installed.
+
+On Linux, this can be done as follows:
 
 ```
 $ sudo apt-get install yui-compressor
@@ -22,14 +23,18 @@ $ sudo apt-get install graphicsmagick
 $ sudo npm install -g gulp
 ```
 
-Now you can download, build
-and view the website as follows:
+For other os's, please see the instructions on the respective project websites.
+[yui-compressor](http://yui.github.io/yuicompressor/), [imageMagick](http://www.imagemagick.org/script/index.php),
+[graphicsmagick](http://www.graphicsmagick.org/).
+
+Once these are installed can download and build website as follows:
 
 ```
 $ git clone https://github.com/alcarruth/frontend-p4-website-optimization.git
 $ cd frontend-p4-website-optimization
 $ npm install
-$ ./build.sh
+$ gulp --gulpfile pizza_app/gulpfile.js
+$ gulp --gulpfile mobile_portfolio/gulpfile.js
 ```
 ### Project Overview
 
