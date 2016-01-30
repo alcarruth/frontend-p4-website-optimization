@@ -5,9 +5,9 @@
 This project requires the following programs to build from scratch:
 
  - node.js
- - [yui-compressor](http://yui.github.io/yuicompressor/)
- - [imageMagick](http://www.imagemagick.org/script/index.php)
- - [graphicsmagick](http://www.graphicsmagick.org/)
+ - [YUI Compressor](http://yui.github.io/yuicompressor/)
+ - [ImageMagick](http://www.imagemagick.org/script/index.php)
+ - [GraphicsMagick](http://www.graphicsmagick.org/)
  - gulp
 
 Assuming that you have node already, the others are easily 
@@ -17,16 +17,16 @@ On Linux, this can be done as follows:
 
 ```
 $ sudo apt-get install yui-compressor
-$ sudo apt-get install imageMagick
+$ sudo apt-get install imagemagick
 $ sudo apt-get install graphicsmagick
 $ sudo npm install -g gulp
 ```
 
-For other os's, please see the instructions on the respective project websites.
-[yui-compressor](http://yui.github.io/yuicompressor/), [imageMagick](http://www.imagemagick.org/script/index.php),
-[graphicsmagick](http://www.graphicsmagick.org/).
+For other OS's, please see the instructions on the respective project websites.
+[YUI Compressor](http://yui.github.io/yuicompressor/), [ImageMagick](http://www.imagemagick.org/script/index.php),
+[GraphicsMagick](http://www.graphicsmagick.org/).
 
-Once these are installed can download and build website as follows:
+Once these are installed, you can download and build website as follows:
 
 ```
 $ git clone https://github.com/alcarruth/frontend-p4-website-optimization.git
@@ -38,13 +38,11 @@ $ gulp --gulpfile mobile_portfolio/gulpfile.js
 ### Project Overview
 
 The original nanodegree project has been extensively refactored.
-First, the project has been split into two, **Pizza App** and **Mobile Portfolio**.
-Each of these has its own subdirectory containing `src` and `dist` subdirectories, and 
-a `gulpfile.js`.  Each project can be built separately by changing to its root directory
-and issuing the `gulp` command.
-
-However, the two projects share a single `node_modules` directory and `package.json` file
-in the root directory of this repository.
+First, the project has been split into two, **Pizza App** and **Mobile
+Portfolio**.  Each of these has its own subdirectory containing `src`
+and `dist` subdirectories, and a `gulpfile.js`.  However, the two
+projects share a single `node_modules` directory and `package.json`
+file in the root directory of this repository.
 
 ### Mobile Portfolio
 

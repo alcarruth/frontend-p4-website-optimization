@@ -56,9 +56,8 @@ function SlidingPizzasBackground(rows, cols) {
         // match the page's background color.
 
         var imgSrc = "images/sliding_pizza.png";
-
         var pizza;
-		bg = document.querySelector("#sliding-pizzas");
+        bg = document.getElementById('sliding-pizzas');
 
         for (var row = 0; row < rows; row++) {
             for (var col = 0; col < cols; col++) {
