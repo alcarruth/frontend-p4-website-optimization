@@ -95,7 +95,7 @@ JavaScript objects containing no HTML.  These are later combined with a _view_
 template to create the actual HTML for the page.
 
 So pizza_designer.js includes the lists of nouns, adjectives and
-ingredients from the original.  The random generator code had been
+ingredients from the original.  The random generator code has been
 cleaned up and modularized in an attempt to make it more cohesive,
 comprehensible and "easy on the eyes".  And the two default pizzas,
 _The Udacity Special_, and _The Cameron Special_, which were
@@ -151,9 +151,50 @@ but possibly beyond that.
 
 ### Status
 
+I'm still playing with it. 
+Most of the optimization targets were met by just refactoring the 
+for loops, moving unnecessary code out of inner loops and maintaining
+in memory a list of pizza elements so that there was no need to
+query the document each time around.
 
+All of the timing tests seem to pass with flying colors except for the
+60 frames per second.  In DevTools, the CPU time required for each
+frame is usually around 10 ms, but the rest of the frame is hollow
+with nothing in it.
 
+I've tried a number of things to improve the timing
 
+ - I reduced the number of sliding pizzas to 8 columns by 5 rows.
+   Definitely a win.
+ - I tried to reduce the size of the DOM.  The original code
+   had a lot of `<div>`s to handle the bootstrap formatting.
+   I got rid of bootstrap and relied on flex-box instead.
+   Not sure what to make of this, but I do prefer the flex-box way.
+ - putting all the sliding pizzas on a sliding_pizzas layer.
+   I did this by changing the CSS.  The sliding pizzas had
+   z-index: inerit and their container had z-index: 1.
+ - putting them on one of 5 layers according to their 'phase'.
+   This way the whole layer could be shifted by dx, instead
+   of shifting each pizza individually.  This actually worked
+   and I thought it was pretty cool but the painter and compositor
+   did not care much for it. 
+ - putting them each on their own layer.  This is the current
+   best approach.
+ - I tried using opaque sliding pizza images with a black background
+   thinking it might take some of the pressure off of the compositor.
+   This seemed not to work.
+ - I resized the pizza images (both sliding and menu) to their
+   eventual display size.  This helped a bit.
+
+I also tried:
+
+ - two different OS's: OSX and Linux
+ - four or five different versions of google-chrome/chromium
+ - changing chrome:flags like GPU blacklist
+ - installing the nVida proprietary binary drivers (on Linux)
+ - taking a week off to just play JankInvaders.  I got pretty
+   good at it.
 
 ### License
 
+Probably GNU or MIT or BSD ... I don't know.
