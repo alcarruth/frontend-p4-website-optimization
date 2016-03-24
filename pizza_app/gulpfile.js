@@ -67,7 +67,12 @@ gulp.task('images', ['clean'], function() {
 
     gulp.src('src/images/pizzeria.jpg')
             .pipe(gm(function(gmfile){
-                return gmfile.resize('20%').quality('20%')
+                return gmfile
+                    .resize(360, 270)
+                    .strip()
+                    //.gaussian(0.05)
+                    .interlace('Plane')
+                    .quality('50%');
             }))
             .pipe(gulp.dest('dist/images/'));
 
@@ -115,7 +120,7 @@ gulp.task('templates_min', ['styles_min', 'scripts_min'], function() {
 });
 
 gulp.task('dist', [
-    'clean',
+    //'clean',
     'images',
     'scripts_min',
     'styles_min',
