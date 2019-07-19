@@ -29,7 +29,7 @@ For other OS's, please see the instructions on the respective project websites.
 Once these are installed, you can download and build website as follows:
 
 ```
-$ git clone https://github.com/alcarruth/frontend-p4-website-optimization.git
+$ git clone https://github.com/alcarruth/website-optimization.git
 $ cd frontend-p4-website-optimization
 $ npm install
 $ gulp --gulpfile pizza_app/gulpfile.js
