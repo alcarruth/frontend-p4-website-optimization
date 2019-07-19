@@ -30,7 +30,7 @@ Once these are installed, you can download and build website as follows:
 
 ```
 $ git clone https://github.com/alcarruth/website-optimization.git
-$ cd frontend-p4-website-optimization
+$ cd website-optimization
 $ npm install
 $ gulp --gulpfile pizza_app/gulpfile.js
 $ gulp --gulpfile mobile_portfolio/gulpfile.js
